@@ -3,7 +3,7 @@ Distributed Systems Project Winter Term 2022/2023
 
 ## Repository Structur
 
-documents: contains all paperworke like presentations, picturs and stuff
+[documents](/documents/): contains all paperworke like presentations, picturs and stuff
 
 ## Tools
 
