@@ -17,5 +17,19 @@ Mosaik: https://mosaik.offis.de/
 
 Ecovisor: https://arxiv.org/abs/2210.04951
 
+SymPi: https://simpy.readthedocs.io
+
+[[/resources/]] all further resources like data for carbon intensity
+
 ## Workflows
+
+### Structur
+
+DS-PROJECT
+├───documents
+│   └───kickoff
+├───resources
+└───src
+    └───agents
+
 TBD
