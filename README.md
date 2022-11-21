@@ -25,11 +25,13 @@ SymPi: https://simpy.readthedocs.io
 
 ### Structur
 
+```bash
 DS-PROJECT
 ├───documents
 │   └───kickoff
 ├───resources
 └───src
     └───agents
+```
 
 TBD
