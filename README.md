@@ -4,7 +4,7 @@ Distributed Systems Project Winter Term 2022/2023
 ## Repository Structure
 
 ```
-├── documents: contains all paperworke like presentations, picturs and stuff
+├── documents: contains all paperwork like presentations, pictures and stuff
 ├── LICENSE
 ├── README.md
 ├── resources: data for carbon intensity solar generation
