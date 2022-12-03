@@ -33,7 +33,6 @@ class SimpleBatterySim(mosaik_api.Simulator):
             self.eid_prefix = eid_prefix
         return self.meta
 
-    # TODO randomize *capacity* and *init_charge* if specified
     def create(self, num, model, capacity = 100, init_charge = -1):
         next_eid = len(self.entities)
         entities = []
@@ -66,7 +65,6 @@ class SimpleBatterySim(mosaik_api.Simulator):
             for attr in attrs:
                 if attr not in self.meta['models']['SimpleBatteryModel']['attrs']: # type: ignore
                     raise ValueError(f'Unknown output attribute: {attr}')
-                # Get model.val or model.delta:
                 data[eid][attr] = getattr(model, attr)
         return data
 
