@@ -5,7 +5,7 @@ Author: Marvin Steinke
 """
 
 import mosaik_api
-from ..models.simple_battery_model import SimpleBatteryModel
+from models.simple_battery_model import SimpleBatteryModel
 
 META = {
     # Time based so delta is in ampere seconds
@@ -27,11 +27,11 @@ class SimpleBatterySim(mosaik_api.Simulator):
         self.time = 0
 
     def init(self, sid, time_resolution, eid_prefix=None):
-            if float(time_resolution) != 1.:
-                raise ValueError(f'SimpleBatterySim only supports time_resolution=1., but {time_resolution} was set.')
-            if eid_prefix is not None:
-                self.eid_prefix = eid_prefix
-            return self.meta
+        if float(time_resolution) != 1.:
+            raise ValueError(f'SimpleBatterySim only supports time_resolution=1., but {time_resolution} was set.')
+        if eid_prefix is not None:
+            self.eid_prefix = eid_prefix
+        return self.meta
 
     # TODO randomize *capacity* and *init_charge* if specified
     def create(self, num, model, capacity = 100, init_charge = -1):
@@ -44,7 +44,7 @@ class SimpleBatterySim(mosaik_api.Simulator):
             entities.append({'eid': eid, 'type': model})
         return entities
 
-     def step(self, time, inputs, max_advance):
+    def step(self, time, inputs, max_advance):
         self.time = time
         # Check for new delta and do step for each model instance:
         for eid, model_instance in self.entities.items():
