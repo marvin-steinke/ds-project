@@ -37,7 +37,7 @@ class SimpleBatterySim(mosaik_api.Simulator):
         next_eid = len(self.entities)
         entities = []
         for i in range(next_eid, next_eid + num):
-            model_instance = SimpleBatteryModel(capacity, init_charge) # TODO
+            model_instance = SimpleBatteryModel(capacity, init_charge)
             eid = self.eid_prefix + str(i)
             self.entities[eid] = model_instance
             entities.append({'eid': eid, 'type': model})
