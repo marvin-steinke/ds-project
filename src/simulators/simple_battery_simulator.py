@@ -2,19 +2,20 @@
 Mosaik interface for the simple battery simulator.
 Author: Marvin Steinke
 
+Notes: *discharge_s* is specified in Ws since the consumption is modeled per second
+
 """
 
 import mosaik_api
-from models.simple_battery_model import SimpleBatteryModel
+from models.simple_battery_model import SimpleBatteryModel # type: ignore
 
 META = {
-    # Time based so delta is in ampere seconds
-    'type': 'time-based',
+    'type': 'event-based',
     'models': {
         'SimpleBatteryModel': {
             'public': True,
             'params': ['capacity', 'init_charge'],
-            'attrs': ['capacity', 'charge', 'delta'],
+            'attrs': ['capacity', 'charge', 'discharge_s'],
         },
     },
 }
@@ -45,16 +46,16 @@ class SimpleBatterySim(mosaik_api.Simulator):
 
     def step(self, time, inputs, max_advance):
         self.time = time
-        # Check for new delta and do step for each model instance:
+        # Check for new discharge_s and do step for each model instance:
         for eid, model_instance in self.entities.items():
             if eid in inputs:
                 attrs = inputs[eid]
-                new_delta = 0
+                new_discharge_s = 0
                 for attr, values in attrs.items():
-                    new_delta = sum(values.values())
-                model_instance.delta = new_delta
+                    new_discharge_s = sum(values.values())
+                model_instance.discharge_s = new_discharge_s
             model_instance.step()
-        return time + 1  # Step size is 1 second
+        return None
 
     def get_data(self, outputs):
         data = {}

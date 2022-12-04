@@ -3,9 +3,7 @@ A simple data collector that prints all data when the simulation finishes.
 
 """
 import collections
-
 import mosaik_api
-
 
 META = {
     'type': 'event-based',
@@ -19,7 +17,6 @@ META = {
     },
 }
 
-
 class Collector(mosaik_api.Simulator):
     def __init__(self):
         super().__init__(META)
@@ -32,7 +29,6 @@ class Collector(mosaik_api.Simulator):
     def create(self, num, model):
         if num > 1 or self.eid is not None:
             raise RuntimeError('Can only create one instance of Monitor.')
-
         self.eid = 'Monitor'
         return [{'eid': self.eid, 'type': model}]
 
@@ -41,7 +37,6 @@ class Collector(mosaik_api.Simulator):
         for attr, values in data.items():
             for src, value in values.items():
                 self.data[src][attr][time] = value
-
         return None
 
     def finalize(self):
@@ -50,7 +45,6 @@ class Collector(mosaik_api.Simulator):
             print('- %s:' % sim)
             for attr, values in sorted(sim_data.items()):
                 print('  - %s: %s' % (attr, values))
-
 
 if __name__ == '__main__':
     mosaik_api.start_simulation(Collector())
