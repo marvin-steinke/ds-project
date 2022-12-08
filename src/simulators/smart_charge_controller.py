@@ -6,7 +6,7 @@ Author: Marvin Steinke
 """
 
 import mosaik_api
-from models.smart_charge_agent import SmartChargeAgent # type: ignore
+from agents.smart_charge_agent import SmartChargeAgent # type: ignore
 
 META = {
     'type': 'event-based',
