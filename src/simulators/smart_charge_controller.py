@@ -25,9 +25,6 @@ class SmartChargeController(mosaik_api.Simulator):
         self.eid_prefix = 'SmartChargeAgent_'
         self.agents = {}
         self.time = 0
-        self.max_flow = {}
-        self.drawn = {}
-        self.available = {}
 
     def init(self, sid, time_resolution, eid_prefix=None):
         if float(time_resolution) != 1.:
@@ -40,9 +37,9 @@ class SmartChargeController(mosaik_api.Simulator):
         next_eid = len(self.agents)
         entities = []
         for i in range(next_eid, next_eid + num):
-            model_instance = SmartChargeAgent()
+            agent_instance = SmartChargeAgent()
             eid = self.eid_prefix + str(i)
-            self.agents[eid] = model_instance
+            self.agents[eid] = agent_instance
             entities.append({'eid': eid, 'type': model})
         return entities
 
