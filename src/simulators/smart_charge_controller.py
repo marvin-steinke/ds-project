@@ -59,7 +59,6 @@ class SmartChargeController(mosaik_api.Simulator):
             if len(request_dict) > 0:
                 request = list(request_dict.values())[0]
                 agent.step(request)
-                continue
         return None
 
     def get_data(self, outputs):

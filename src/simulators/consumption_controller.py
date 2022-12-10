@@ -56,7 +56,6 @@ class ConsumptionController(mosaik_api.Simulator):
             consumption_dict = attrs.get('consumption', {})
             if len(consumption_dict) > 0:
                 agent.set_consumption(list(consumption_dict.values())[0])
-                continue
         return None
 
     def get_data(self, outputs):
