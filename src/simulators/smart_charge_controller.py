@@ -47,6 +47,9 @@ class SmartChargeController(mosaik_api.Simulator):
         self.time = time
         for agent_eid, attrs in inputs.items():
             agent = self.agents[agent_eid]
+            max_flow_dict = attrs.get('max_flow', {})
+            if len(max_flow_dict) > 0:
+                agent.max_flow = list(max_flow_dict.values())[0]
             available_dict = attrs.get('available', {})
             if len(available_dict) > 0:
                 agent.available = list(available_dict.values())[0]
@@ -56,10 +59,6 @@ class SmartChargeController(mosaik_api.Simulator):
             if len(request_dict) > 0:
                 request = list(request_dict.values())[0]
                 agent.step(request)
-                continue
-            max_flow_dict = attrs.get('max_flow', {})
-            if len(max_flow_dict) > 0:
-                agent.max_flow = list(max_flow_dict.values())[0]
                 continue
         return None
 
