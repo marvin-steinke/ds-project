@@ -14,7 +14,7 @@ META = {
     'models': {
         'SimpleBatteryModel': {
             'public': True,
-            'params': ['capacity', 'init_charge'],
+            'params': ['capacity', 'charge'],
             'attrs': ['capacity', 'charge', 'discharge_s'],
         },
     },
@@ -34,11 +34,11 @@ class SimpleBatterySim(mosaik_api.Simulator):
             self.eid_prefix = eid_prefix
         return self.meta
 
-    def create(self, num, model, capacity = 100, init_charge = -1):
+    def create(self, num, model, capacity = 100, charge = -1):
         next_eid = len(self.entities)
         entities = []
         for i in range(next_eid, next_eid + num):
-            model_instance = SimpleBatteryModel(capacity, init_charge)
+            model_instance = SimpleBatteryModel(capacity, charge)
             eid = self.eid_prefix + str(i)
             self.entities[eid] = model_instance
             entities.append({'eid': eid, 'type': model})
