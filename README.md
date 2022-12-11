@@ -10,10 +10,26 @@ Distributed Systems Project Winter Term 2022/2023
 ├── resources: data for carbon intensity solar generation
 │   ├── actuals.csv
 │   ├── carbon_intensity.zip
-│   └── forecasts.csv
+│   ├── consumption.csv
+│   ├── forecasts.csv
+│   └── tesing_PV.csv
 └── src
+    ├── agents
+    │   ├── consumption_agent.py
+    │   │   ├── consumption_agent.cpython-310.pyc
+    │   │   └── smart_charge_agent.cpython-310.pyc
+    │   └── smart_charge_agent.py
     ├── models
-    └── simulators
+    │   └── simple_battery_model.py
+    ├── scc_mwe.py
+    ├── simulators
+    │   ├── collector.py
+    │   ├── consumption_controller.py
+    │   ├── flow_simulator.py
+    │   ├── simple_battery_simulator.py
+    │   └── smart_charge_controller.py
+    └── utils
+        └── single_model_simulator.py
 ```
 
 ## Further Resources
