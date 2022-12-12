@@ -1,0 +1,149 @@
+\documentclass[aspectratio=169, 10pt]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{csquotes}
+\usepackage{lmodern}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{marvosym}
+
+\setbeamertemplate{navigation symbols}{}
+\usetheme{TUBlayout}
+\pdfstringdefDisableCommands{%
+  \def\includegraphics{}%
+  \def\textwidth{}%
+}
+\newcommand{\arrow}{\Large \MVRightarrow}
+
+\title[Ecovisor \& Mosaik Co-Simulation]{
+    \includegraphics[width=.4\textwidth]{mosaik}\\[7mm]
+    Integrating Ecovisor into Mosaik Co-Simulation\\
+    \normalsize Simulate the virtual energy grid
+}
+\author[Nickel \& Steinke]{Henrik Nickel, Marvin Steinke}
+\institute{Technische Universität Berlin}
+\newcommand{\preslocation}{Berlin}
+\date{\today}
+
+\begin{document}
+
+\frame[plain]{\titlepage}
+
+\section{Motivation}
+\begin{frame}
+    \begin{columns}[c]
+        \column{.5\textwidth}
+        \begin{itemize}
+            \item integrate Ecovisor into the Mosaik simulation tool
+            \item[\arrow] provide an easy way to test a virtual grid
+        \end{itemize}
+        \vspace{5mm}
+        Further Questions:
+        \begin{itemize}
+            \item multiple (interconnected) Ecovisor systems
+            \item impact of different workload profiles
+            \item ...
+        \end{itemize}
+        \column{.5\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=\textwidth]{ecovisor_testbed}
+            \caption{Ecovisor physical prototype}
+            \label{fig:ecovisor_testbed}
+        \end{figure}
+    \end{columns}
+\end{frame}
+
+\section{Background}
+\begin{frame}
+    \begin{columns}[c]
+        \column{.5\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=.7\textwidth]{ecovisor_design}
+            \caption{Ecovisor: a virtual energy system for carbon-efficient applications}
+            \label{fig:ecovisor_design}
+        \end{figure}
+        \column{.5\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=.7\textwidth]{ecovisor_desktop}
+            \caption{Mosaik: a flexible Smart Grid co-simulation framework}
+            \label{fig:ecovisor_desktop}
+        \end{figure}
+    \end{columns}
+\end{frame}
+
+\section{Concept}
+\begin{frame}
+    \begin{figure}
+    \begin{minipage}{\textwidth}
+        \hspace{6.7mm}\includegraphics[width=.65\textwidth]{../sketch.png}
+        \caption{Ecovisor simulated within Mosaik Co-Simulation; adapted from
+        Souza et al. \cite{souza2022}}
+    \end{minipage}
+    \end{figure}
+\end{frame}
+
+\section{Approach}
+\begin{frame}
+    \begin{columns}[c]
+        \column{.5\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=.7\textwidth]{ecovisor_energy_system}
+            \caption{Ecovisor energy system}
+            \label{fig:ecovisor_energy_system}
+        \end{figure}
+        \column{.5\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=\textwidth]{../smart_charge_controller.pdf}
+            \caption{Smart-charge-controller}
+            \label{fig:smart_charge_controller}
+        \end{figure}
+    \end{columns}
+\end{frame}
+
+\section{Open Challenges}
+\begin{frame}
+    \begin{columns}[c]
+        \column{.5\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=.6\textwidth]{workload_simulation}
+            \caption{Workload simulation}
+            \label{fig:workload_sim}
+        \end{figure}
+        \column{.5\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=\textwidth]{ecovisor_api}
+            \caption{Ecovisor API}
+            \label{fig:ecovisor_api}
+        \end{figure}
+    \end{columns}
+\end{frame}
+
+\appendix
+
+\begin{frame}[noframenumbering]{%
+        Questions?\\
+        \normalsize And thank you for your attention
+}
+\bibliographystyle{ieeetr}
+\begin{itemize}
+    \item figures adapted from:
+\end{itemize}
+\vspace{2mm}
+\bibliography{refs}
+\vspace{8mm}
+\begin{itemize}
+    \item title page adapted from \url{https://mosaik.offis.de/}
+\end{itemize}
+\end{frame}
+
+\end{document}

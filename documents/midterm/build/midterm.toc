@@ -1,0 +1,6 @@
+\babel@toc {english}{}\relax 
+\beamer@sectionintoc {1}{Motivation}{2}{0}{1}
+\beamer@sectionintoc {2}{Background}{3}{0}{2}
+\beamer@sectionintoc {3}{Concept}{4}{0}{3}
+\beamer@sectionintoc {4}{Approach}{5}{0}{4}
+\beamer@sectionintoc {5}{Open Challenges}{6}{0}{5}
