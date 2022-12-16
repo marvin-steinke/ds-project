@@ -14,16 +14,18 @@ SIM_CONFIG = {
     'ConsumptionController': {
         'python': 'simulators.consumption_controller:ConsumptionController',
         },
-    'SmartChargeController': {
-        'python': 'simulators.smart_charge_controller:SmartChargeController',
+    'PVController': {
+        'python': 'simulators.pv_controller:PVController',
         },
-    'FlowSim': {
-        'python': 'simulators.flow_simulator:FlowSim',
+    'Ecovisor': {
+        'python': 'simulators.ecovisor:Ecovisor',
         },
 }
 
 START = '2014-01-01 00:00:00'
 CONSUMPTION_DATA = '../resources/consumption.csv'
+PV_DATA = '../resources/testing_PV.csv'
+CARBON_DATA = '../resources/testing_carbon.csv'
 END = 10
 
 def main():
@@ -33,37 +35,53 @@ def main():
 
 def create_scenario(world):
     # Start simulators
-    battery_sim = world.start('BatterySim')
-    collector = world.start('Collector')
     consumption_sim = world.start('CSV', sim_start=START, datafile=CONSUMPTION_DATA)
+    pv_sim = world.start('CSV', sim_start=START, datafile=PV_DATA)
+    carbon_sim = world.start('CSV', sim_start=START, datafile=CARBON_DATA)
+    battery_sim = world.start('BatterySim')
     consumption_controller = world.start('ConsumptionController')
-    smart_charge_controller = world.start('SmartChargeController')
-    flow_sim = world.start('FlowSim')
+    pv_controller = world.start('PVController')
+    ecovisor = world.start('Ecovisor')
+    collector = world.start('Collector')
+
     # Instantiate models
     battery_capacity = 10
     battery_model = battery_sim.SimpleBatteryModel(capacity = battery_capacity)
     consumption_model = consumption_sim.Consumption()
     consumption_agent = consumption_controller.ConsumptionAgent(kW_conversion_factor = 1)
-    smart_charge_agent = smart_charge_controller.SmartChargeAgent(available = battery_capacity)
-    flow_model = flow_sim.FlowModel(max_flows = {'3': 500})
+    pv_model = pv_sim.PV()
+    pv_agent = pv_controller.PVAgent(kW_conversion_factor = 1)
+    carbon_model = carbon_sim.CarbonIntensity()
+    ecovisor_model = ecovisor.EcovisorModel(battery_charge_level = battery_capacity)
     monitor = collector.Monitor()
+
     # Connect entities
-    ## Consumer -> ConsumerAgent:
+    ## Consumer -> ConsumerAgent -> EcovisorModel:
     world.connect(consumption_model, consumption_agent, ('P', 'consumption'))
-    ## SmartChargeAgent <-> ConsumptionAgent
-    world.connect(consumption_agent, smart_charge_agent, ('consumption', 'request'))
-    world.connect(smart_charge_agent, consumption_agent, 'drawn', weak = True)
-    ## BatteryModel <-> SmartChargeAgent
-    world.connect(battery_model, smart_charge_agent, ('charge', 'available'))
-    world.connect(smart_charge_agent, battery_model, ('drawn', 'discharge_s'), weak = True)
-    ## FlowModel -> SmartChargeAgent:
-    world.connect(flow_model, smart_charge_agent, ('current_max_flow', 'max_flow'))
+    world.connect(consumption_agent, ecovisor_model, 'consumption', 'battery_charge_rate', 'battery_max_discharge')
+    ## PVModel -> PVAgent -> EcovisorModel
+    world.connect(pv_model, pv_agent, ('P', 'solar_power'))
+    world.connect(pv_agent, ecovisor_model, 'solar_power')
+    ## SimpleBatteryModel <-> EcovisorModel
+    world.connect(ecovisor_model, battery_model, ('battery_delta', 'delta'))
+    world.connect(battery_model, ecovisor_model, ('charge', 'battery_charge_level'), weak = True)
+    ## CarbonModel -> EcovisorModel
+    world.connect(carbon_model, ecovisor_model, ('rating', 'grid_carbon'))
+
     # Monitor
-    world.connect(battery_model, monitor, 'charge', 'discharge_s')
-    world.connect(battery_model, monitor, 'charge', 'discharge_s')
-    world.connect(flow_model, monitor, 'current_max_flow')
-    world.connect(smart_charge_agent, monitor, 'available', 'drawn', 'max_flow')
-    world.connect(consumption_agent, monitor, 'consumption', 'drawn')
+    world.connect(battery_model, monitor, 'charge', 'delta')
+    world.connect(ecovisor_model, monitor,
+                  'consumption',
+                  'battery_charge_rate',
+                  'battery_discharge_rate',
+                  'battery_max_discharge',
+                  'battery_charge_level',
+                  'battery_delta',
+                  'solar_power',
+                  'grid_carbon',
+                  'grid_power',
+                  'total_carbon',
+    )
 
 if __name__ == '__main__':
     main()

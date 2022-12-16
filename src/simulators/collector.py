@@ -4,6 +4,7 @@ A simple data collector that prints all data when the simulation finishes.
 """
 import collections
 import mosaik_api
+from tabulate import tabulate
 
 META = {
     'type': 'event-based',
@@ -42,9 +43,16 @@ class Collector(mosaik_api.Simulator):
     def finalize(self):
         print('Collected data:')
         for sim, sim_data in sorted(self.data.items()):
-            print('- %s:' % sim)
+            table = []
             for attr, values in sorted(sim_data.items()):
-                print('  - %s: %s' % (attr, values))
+                row = [attr]
+                for value in values.values():
+                    row.append(f'{value:3.2f}')
+                table.append(row)
+            end = list(list(sim_data.values())[0].keys())[-1] + 1
+            headers = [str(i) for i in list(range(end))]
+            headers.insert(0, sim)
+            print(f'\n{tabulate(table, headers=headers)}')
 
 if __name__ == '__main__':
     mosaik_api.start_simulation(Collector())
