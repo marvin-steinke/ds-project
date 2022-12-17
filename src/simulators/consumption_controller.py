@@ -15,7 +15,7 @@ META = {
         'ConsumptionAgent': {
             'public': True,
             'params': ['kW_conversion_factor'],
-            'attrs': ['drawn', 'consumption', 'remaining'],
+            'attrs': ['consumption', 'battery_charge_rate', 'battery_max_discharge'],
         },
     },
 }
@@ -28,12 +28,6 @@ class ConsumptionController(SingleModelSimulator):
         self.time = time
         for agent_eid, attrs in inputs.items():
             agent = self.entities[agent_eid]
-            drawn_dict = attrs.get('drawn', {})
-            if len(drawn_dict) > 0:
-                agent.drawn = list(drawn_dict.values())[0]
-                agent.step()
-                del agent.consumption
-                continue
             consumption_dict = attrs.get('consumption', {})
             if len(consumption_dict) > 0:
                 agent.set_consumption(list(consumption_dict.values())[0])
