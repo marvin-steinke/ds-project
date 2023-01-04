@@ -4,14 +4,16 @@ Author: Marvin Steinke
 
 """
 
+from models.simple_battery_model import SimpleBatteryModel # type: ignore
+
 class EcovisorModel:
-    def __init__(self, battery_charge_level):
-        self.consumption = 0
+    def __init__(self, battery_capacity = 10, battery_charge_level = -1):
+        self.battery = SimpleBatteryModel(battery_capacity, battery_charge_level)
+        self.battery_charge_level = self.battery.charge
         self.battery_charge_rate = 0
         self.battery_discharge_rate = 0
         self.battery_max_discharge = float('inf')
-        self.battery_charge_level = battery_charge_level
-        self.battery_delta = 0
+        self.consumption = 0
         self.solar_power = 0
         self.grid_carbon = 0
         self.grid_power = 0
@@ -29,5 +31,7 @@ class EcovisorModel:
                                               remaining)
             remaining -= self.battery_discharge_rate
         self.grid_power = self.battery_charge_rate + remaining
-        self.battery_delta = self.battery_charge_rate - self.battery_discharge_rate
+        self.battery.delta = self.battery_charge_rate - self.battery_discharge_rate
+        self.battery.step()
+        self.battery_charge_level = self.battery.charge
         self.total_carbon = self.grid_carbon * self.grid_power
