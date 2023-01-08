@@ -22,7 +22,8 @@ class EcovisorModel:
         self.total_carbon = 0
         self.container = {}
         self.redis = redis.Redis(host='localhost',port=6379,db=0)
-
+        self.send_redis_update()
+        
     def step(self):
         #get updated values from redis
         self.get_redis_update()
