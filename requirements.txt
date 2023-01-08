@@ -2,3 +2,6 @@ fastapi
 uvicorn
 redis
 docker
+mosaik
+mosaik-csv
+tabulate

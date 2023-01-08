@@ -31,13 +31,15 @@ END = 10
 
 def main():
     #ToDo: Start docker container(redis with json module/api_server())
-    client = docker.from_env()
-    container = client.containers.run('redislabs/rejson:latest',detach=True,auto_remove=True)
-    world = mosaik.World(SIM_CONFIG) # type: ignore
-    create_scenario(world)
-    world.run(until=END)
-    #stop container
-    container.stop()
+    try:
+        client = docker.from_env()
+        container = client.containers.run('redislabs/rejson:latest',detach=True,auto_remove=True,ports={6379:6379})
+        world = mosaik.World(SIM_CONFIG) # type: ignore
+        create_scenario(world)
+        world.run(until=END)
+        #stop container
+    finally:
+        container.stop()
 
 def create_scenario(world):
     # Start simulators
