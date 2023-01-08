@@ -58,7 +58,9 @@ class EcovisorModel:
         self.redis.json().set('container',Path.root_path(),self.container)
     
     def get_redis_update(self) -> None:
-        data_dict = self.redis.mget("solar_power","grid_power","grid_carbon","battery_discharge_rate","battery_charge_level")
+        key_dict = {"solar_power","grid_power","grid_carbon","battery_discharge_rate","battery_charge_level"}
+        data_dict = self.redis.mget(key_dict)
+        data_dict = dict(zip(key_dict,data_dict))        
         self.solar_power = data_dict["solar_power"]
         self.grid_power = data_dict["grid_power"]
         self.battery_discharge_rate = data_dict["battery_discharge_rate"]

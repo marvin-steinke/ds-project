@@ -29,7 +29,7 @@ CARBON_DATA = '../resources/testing_carbon.csv'
 END = 10
 
 def main():
-    #ToDo: Start docker container(redis/api_server)
+    #ToDo: Start docker container(redis with json module/api_server)
     world = mosaik.World(SIM_CONFIG) # type: ignore
     create_scenario(world)
     world.run(until=END)
