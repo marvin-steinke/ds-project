@@ -19,8 +19,7 @@ class ApiServer:
         self.grid_power = 0
         self.container = {}
         self.redis = redis.Redis(host='localhost',port=6379,db=0)
-        self.send_redis_update()
-       # self.get_redis_update()
+        self.get_redis_update()
         self.run()
 
     
