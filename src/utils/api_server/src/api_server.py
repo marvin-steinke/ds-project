@@ -7,10 +7,11 @@ from fastapi import FastAPI, Form
 import uvicorn
 import redis
 from redis.commands.json.path import Path
+import os
 
 
 class ApiServer:
-    def __init__(self):
+    def __init__(self, host, port):
         self.battery_charge_rate = 0
         self.battery_discharge_rate = 0
         self.battery_charge_level = 0
@@ -20,7 +21,7 @@ class ApiServer:
         self.container = {}
         self.redis = redis.Redis(host='localhost',port=6379,db=0)
         self.get_redis_update()
-        self.run()
+        self.run(host,port)
 
     
 
@@ -141,8 +142,8 @@ class ApiServer:
         #app.on_event("startup")(self._init)
         return app
 
-    def run(self, port = None) -> None:
-        uvicorn.run(self.app, host="127.0.0.1", port=port or 8080)
+    def run(self,host, port = None) -> None:
+        uvicorn.run(self.app, host=host or "127.0.0.1", port=port or 8080)
 
     # methods to update redis data
     def send_redis_update(self) -> None:
@@ -171,5 +172,5 @@ class ApiServer:
 #app = lambda: a.app
 
 if __name__ == '__main__':
-    a = ApiServer()
+    a = ApiServer(os.environ.get('APP_HOST'),os.environ.get('APP_PORT'))
     #a.run()
