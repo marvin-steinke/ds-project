@@ -1,6 +1,8 @@
 import mosaik
 import mosaik.util
+import time
 import docker
+from utils.api_server.src.api_server import ApiServer
 
 SIM_CONFIG = {
     'CSV': {
@@ -27,16 +29,18 @@ START = '2014-01-01 00:00:00'
 CONSUMPTION_DATA = '../resources/consumption.csv'
 PV_DATA = '../resources/testing_PV.csv'
 CARBON_DATA = '../resources/testing_carbon.csv'
-END = 10
+END = 3000
 
 def main():
     #ToDo: Start docker container(redis with json module/api_server())
     try:
         client = docker.from_env()
-        container = client.containers.run('redislabs/rejson:latest',detach=True,auto_remove=True,ports={6379:6379})
-        world = mosaik.World(SIM_CONFIG) # type: ignore
+        container = client.containers.run('redislabs/rejson:latest',detach=True,auto_remove=True,ports={6379:6379},name="redis" )
+        #start api server
+        #a = ApiServer(host='localhost',port=8080)
+        world = mosaik.World(SIM_CONFIG) # type: ignore3
         create_scenario(world)
-        world.run(until=END)
+        world.run(until=END,rt_factor=1)
         #stop container
     finally:
         container.stop()

@@ -1,6 +1,6 @@
 """
-This module contains the Ecovisor model.
-Author: Marvin Steinke, Henrik Nickel (Api integration)
+This module contains the ApiServer.
+Author: Henrik Nickel (Api integration)
 
 """
 from fastapi import FastAPI, Form
@@ -12,12 +12,12 @@ import os
 
 class ApiServer:
     def __init__(self, host, port):
-        self.battery_charge_rate = 0
-        self.battery_discharge_rate = 0
-        self.battery_charge_level = 0
-        self.solar_power = 0
-        self.grid_carbon = 0
-        self.grid_power = 0
+        self.battery_charge_rate = 0.0
+        self.battery_discharge_rate = 0.0
+        self.battery_charge_level = 0.0
+        self.solar_power = 0.0
+        self.grid_carbon = 0.0
+        self.grid_power = 0.0
         self.container = {}
         self.redis = redis.Redis(host='localhost',port=6379,db=0)
         self.get_redis_update()
@@ -160,17 +160,19 @@ class ApiServer:
     def get_redis_update(self) -> None:
         key_dict = {"solar_power","grid_power","grid_carbon","battery_discharge_rate","battery_charge_level"}
         data_dict = self.redis.mget(key_dict)
-        data_dict = dict(zip(key_dict,data_dict))
-        self.solar_power = data_dict["solar_power"]
-        self.grid_power = data_dict["grid_power"]
-        self.battery_discharge_rate = data_dict["battery_discharge_rate"]
-        self.battery_charge_level = data_dict["battery_charge_level"]
+        data_dict = dict(zip(key_dict,data_dict))        
+        print(data_dict)
+        self.solar_power = float(data_dict["solar_power"])
+        self.grid_power = float(data_dict["grid_power"])
+        self.battery_discharge_rate = float(data_dict["battery_discharge_rate"])
+        self.battery_charge_level = float(data_dict["battery_charge_level"])
         self.container = self.redis.json().get("container")
-
+        self.grid_carbon = float(data_dict["grid_carbon"])
+        
 # For test purpose!
 
 #app = lambda: a.app
 
 if __name__ == '__main__':
-    a = ApiServer(os.environ.get('APP_HOST'),os.environ.get('APP_PORT'))
+    a = ApiServer('localhost',8080)
     #a.run()

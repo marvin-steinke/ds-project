@@ -9,23 +9,24 @@ import redis
 from redis.commands.json.path import Path
 
 class EcovisorModel:
-    def __init__(self, battery_capacity = 10, battery_charge_level = -1):
+    def __init__(self, battery_capacity = 10.0, battery_charge_level = -1.0):
         self.battery = SimpleBatteryModel(battery_capacity, battery_charge_level)
         self.battery_charge_level = self.battery.charge
-        self.battery_charge_rate = 0
-        self.battery_discharge_rate = 0
+        self.battery_charge_rate = 0.0
+        self.battery_discharge_rate = 0.0
         self.battery_max_discharge = float('inf')
-        self.consumption = 0
-        self.solar_power = 0
-        self.grid_carbon = 0
-        self.grid_power = 0
-        self.total_carbon = 0
+        self.consumption = 0.0
+        self.solar_power = 0.0
+        self.grid_carbon = 0.0
+        self.grid_power = 0.0
+        self.total_carbon = 0.0
         self.container = {}
         self.redis = redis.Redis(host='localhost',port=6379,db=0)
         self.send_redis_update()
         
     def step(self):
         #get updated values from redis
+        #ToDo Lock DB
         self.get_redis_update()
         remaining = self.consumption - self.solar_power
         # excess (or equal) solar power
@@ -34,7 +35,7 @@ class EcovisorModel:
         # solar power is insufficient -> use battery
         else:
             self.battery_discharge_rate = min(self.battery_max_discharge,
-                                              self.battery_charge_level * 3600,
+                                              self.battery_charge_level * 3600.0,
                                               remaining)
             remaining -= self.battery_discharge_rate
         self.grid_power = self.battery_charge_rate + remaining
@@ -61,11 +62,12 @@ class EcovisorModel:
         key_dict = {"solar_power","grid_power","grid_carbon","battery_discharge_rate","battery_charge_level"}
         data_dict = self.redis.mget(key_dict)
         data_dict = dict(zip(key_dict,data_dict))        
-        self.solar_power = data_dict["solar_power"]
-        self.grid_power = data_dict["grid_power"]
-        self.battery_discharge_rate = data_dict["battery_discharge_rate"]
-        self.battery_charge_level = data_dict["battery_charge_level"]
+        print(data_dict)
+        self.solar_power = float(data_dict["solar_power"])
+        self.grid_power = float(data_dict["grid_power"])
+        self.battery_discharge_rate = float(data_dict["battery_discharge_rate"])
+        self.battery_charge_level = float(data_dict["battery_charge_level"])
         self.container = self.redis.json().get("container")
-    
+        self.grid_carbon = float(data_dict["grid_carbon"])
         
        
