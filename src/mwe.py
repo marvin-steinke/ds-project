@@ -38,7 +38,7 @@ def main():
         container = client.containers.run('redislabs/rejson:latest',detach=True,auto_remove=True,ports={6379:6379},name="redis" )
         #start api server
         #a = ApiServer(host='localhost',port=8080)
-        world = mosaik.World(SIM_CONFIG) # type: ignore3
+        world = mosaik.World(SIM_CONFIG) # type: ignore
         create_scenario(world)
         world.run(until=END,rt_factor=1)
         #stop container
