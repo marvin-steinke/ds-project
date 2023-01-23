@@ -1,0 +1,31 @@
+\usepackage{tikz}
+\usepackage{marvosym}
+\usepackage{graphicx}
+
+\definecolor{red}{HTML}{C50E1F}
+\definecolor{grey}{HTML}{717171}
+
+\setbeamercolor{block title}{fg=red, bg=white}
+\setbeamercolor{block body}{fg=black, bg=white}
+\setbeamercolor{itemize item}{fg=red}
+\setbeamercolor{itemize subitem}{fg=red}
+\setbeamercolor{section in head/foot}{fg=red, bg=white}
+\setbeamercolor{frametitle}{fg=red, bg=white}
+\setbeamercolor{titlelike}{fg=red, bg=white}
+\setbeamercolor{subsection in head/foot}{fg=red, bg=white}
+\setbeamercolor{author in head/foot}{parent=section in head/foot}
+\setbeamercolor{title in head/foot}{parent=subsection in head/foot}
+\setbeamercolor{section in toc}{fg=red}
+\setbeamercolor{subsection in toc}{fg=black}
+
+\addtobeamertemplate{frametitle}{}{%
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=north east, xshift=-3mm] at (current page.north east)
+            {\includegraphics[height=13mm]{logo}};
+    \end{tikzpicture}
+}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize item}[triangle]
+\setbeamertemplate{footline}[page number]
+
+\newcommand{\arrow}{\Large \MVRightarrow}
