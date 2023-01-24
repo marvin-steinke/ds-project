@@ -21,11 +21,27 @@
 \addtobeamertemplate{frametitle}{}{%
     \begin{tikzpicture}[remember picture,overlay]
         \node[anchor=north east, xshift=-3mm] at (current page.north east)
-            {\includegraphics[height=13mm]{logo}};
+            {\includegraphics[height=11mm]{logo}};
     \end{tikzpicture}
 }
-\setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{itemize item}[triangle]
-\setbeamertemplate{footline}[page number]
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[text line]{%
+  \parbox{0.8\linewidth}{
+    \vspace*{-3mm}\insertshorttitle~| \insertshortauthor
+  }
+  \hfill%
+  \parbox{0.15\linewidth}{
+    \vspace*{-3mm}\raggedleft\insertpagenumber/\inserttotalframenumber
+  }
+}
+\makeatletter
+\patchcmd{\beamer@calculateheadfoot}{\advance\footheight by
+4pt}{\advance\footheight by 8pt}{}{}
+\makeatother
 
+\addtobeamertemplate{footnote}{\vspace{-2mm}\advance\hsize-5mm}{\vspace{2mm}}
+\makeatletter
+\renewcommand*{\footnoterule}{\kern -1mm \hrule \@width 6cm \kern 3mm}
+\makeatother
 \newcommand{\arrow}{\Large \MVRightarrow}
