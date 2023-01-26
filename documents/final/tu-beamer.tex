@@ -49,4 +49,7 @@
 \makeatletter
 \renewcommand*{\footnoterule}{\kern -1mm \hrule \@width 6cm \kern 3mm}
 \makeatother
+\let\OLDitemize\itemize
+\renewcommand\itemize{\OLDitemize\addtolength{\itemsep}{5pt}}
 \newcommand{\arrow}{\Large \MVRightarrow}
+\setbeamerfont{caption}{size=\scriptsize}
