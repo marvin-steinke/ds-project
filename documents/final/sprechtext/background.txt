@@ -14,9 +14,10 @@ efficient manner. Mosaik's importance for research lies in its ability to
 simulate large and complex systems that would be difficult or infeasible to
 model using a single simulation tool. It allows researchers to combine different
 models to study the interactions and performance of the overall system. On the
-right, a smart grid simulation demo can be seen that involves a grid,
-households, and PV panels. These entities are represented by spheres in the
-simulation and are connected according to the layout of the scenario. The color
-of the spheres changes based on the current value of each element. [60s]
+right for example, a smart grid simulation demo can be seen that involves a
+grid, households, and photovoltaic panels. These entities are represented by
+spheres in the simulation and are connected according to the layout of the
+scenario. The color of the spheres changes based on the current value of each
+element. [60s]
 
 =>[1m30s]
