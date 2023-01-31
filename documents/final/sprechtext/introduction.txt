@@ -2,7 +2,7 @@ As we continue to rely on technology in our daily lives, the energy consumption
 of data centers has become a significant concern. Data centers are responsible
 for a large portion of global carbon emissions, and it is crucial that we take
 action to reduce their environmental impact. Today, we will be discussing the
-concept of carbon- and renewable-aware computing by utilizing virtual energy
+concept of carbon- and renewable-aware computing in the context of virtual energy
 systems and software defined control to optimize carbon-efficiency. By
 integrating this concept into a co-simulation framework, we can improve the way
 we model and predict the behavior of physical systems and their interactions
