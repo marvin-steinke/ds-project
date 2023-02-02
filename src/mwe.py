@@ -14,9 +14,9 @@ SIM_CONFIG = {
     'Collector': {
         'python': 'simulators.collector:Collector',
         },
-    'ConsumptionController': {
-        'python': 'simulators.consumption_controller:ConsumptionController',
-        },
+    #'ConsumptionController': {
+    #    'python': 'simulators.consumption_controller:ConsumptionController',
+    #    },
     'PVController': {
         'python': 'simulators.pv_controller:PVController',
         },
@@ -26,7 +26,7 @@ SIM_CONFIG = {
 }
 
 START = '2014-01-01 00:00:00'
-CONSUMPTION_DATA = '../resources/consumption.csv'
+#CONSUMPTION_DATA = '../resources/consumption.csv'
 PV_DATA = '../resources/testing_PV.csv'
 CARBON_DATA = '../resources/testing_carbon.csv'
 END = 3000
