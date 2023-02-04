@@ -25,13 +25,8 @@ SIM_CONFIG = {
         },
 }
 
-<<<<<<< HEAD
-START = '2014-01-01 00:00:00'
-#CONSUMPTION_DATA = '../resources/consumption.csv'
-=======
 START = '2014-01-01 14:08:00'
 CONSUMPTION_DATA = '../resources/consumption.csv'
->>>>>>> a7c8342 (adjusted data for presentation)
 PV_DATA = '../resources/testing_PV.csv'
 CARBON_DATA = '../resources/testing_carbon.csv'
 END = 3000
