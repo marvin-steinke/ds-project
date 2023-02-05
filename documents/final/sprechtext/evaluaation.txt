@@ -1,0 +1,5 @@
+Future Work:
+
+You may recognize this slide from our kickoff presentation where we discussed our initial research question. As Philip already pointed out back then, the integration of the Ecovisor into Mosaik can be a fully realized project on its own for the scope of this module. However, now these points make up solid ideas for future work with our ecovisor simulator.
+
+With our finished project we could now explore a distributed network of multiple simulated geo-distributed ecovisors. The geo-distributed aspect is especially interesting for continueing the work from philip for example. Because carbon intensity is different in each region, depending on the amount of fossil fuels utilized by each country, carbon-aware load shifting techniques can be greatly applied to this ecovisor infrastructure and enable very valuable insights.
