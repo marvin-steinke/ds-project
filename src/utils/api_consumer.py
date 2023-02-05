@@ -44,32 +44,8 @@ def get_data(endpoint):
     response = requests.get(URL + endpoint)
     return response
 
-##get solar power
-#def get_solar_power():
-#
-#    pass
-#
-##get grid power
-#def get_grid_power():
-#    pass
-#
-##get grid carbon
-#def get_grid_carbon():
-#    pass
-#
-##get battery discharge rate
-#def get_battery_discharge_rate():
-#    pass
-#
-##get battery charge level
-#def get_battery_charge_level():
-#    pass
-#
-##get powercap
-#def get_container_powercap():
-#    pass
-#
-#main
+
+
 #get stats evry minute and print out
 
 def main(argv):
@@ -84,7 +60,9 @@ def main(argv):
         while True:
             for api in GET_ENDPOINTS:
                 response = get_data(api)
-                print(str(response.content) + '\n')
+                output = str(response.content)
+                #output = + str(response.content).split(':')[1] +" "+ str(response.content).rsplit(":",1)[1]
+                print(api.rsplit('/',1)[1] + " : " + output + '\n')
             time.sleep(10)
 
 

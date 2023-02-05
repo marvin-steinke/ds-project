@@ -28,11 +28,11 @@ class ApiServer:
         connected = False
         r = None
         while not connected:
-            #try:
+            try:
                 r = redis.Redis(host=host,port=port,db=db)
                 connected = r.ping()
-            #except:
-                #print('No connection to RedisDB')
+            except:
+                print('No connection to RedisDB')
                 pass
             
         return r
