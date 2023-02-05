@@ -62,12 +62,15 @@ class EcovisorModel:
         key_dict = {"solar_power","grid_power","grid_carbon","battery_discharge_rate","battery_charge_level"}
         data_dict = self.redis.mget(key_dict)
         data_dict = dict(zip(key_dict,data_dict))        
-        print(data_dict)
+        #print(data_dict)
         self.solar_power = float(data_dict["solar_power"])
         self.grid_power = float(data_dict["grid_power"])
         self.battery_discharge_rate = float(data_dict["battery_discharge_rate"])
         self.battery_charge_level = float(data_dict["battery_charge_level"])
         self.container = self.redis.json().get("container")
         self.grid_carbon = float(data_dict["grid_carbon"])
-        
-       
+        d_values = self.container.values()
+        consumption = 0
+        for value in d_values:
+            consumption = consumption + value
+        self.consumption = consumption

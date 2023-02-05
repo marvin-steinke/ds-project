@@ -19,11 +19,23 @@ class ApiServer:
         self.grid_carbon = 0.0
         self.grid_power = 0.0
         self.container = {}
-        self.redis = redis.Redis(host='localhost',port=6379,db=0)
+        self.redis = self.connect_to_redis('localhost',6379,0)
         self.get_redis_update()
         self.run(host,port)
 
     
+    def connect_to_redis(self,host,port,db):
+        connected = False
+        r = None
+        while not connected:
+            #try:
+                r = redis.Redis(host=host,port=port,db=db)
+                connected = r.ping()
+            #except:
+                #print('No connection to RedisDB')
+                pass
+            
+        return r
 
     def sim_get_solar_power(self) -> float:
         return self.solar_power
@@ -110,7 +122,7 @@ class ApiServer:
 
         #set container power cap
         @app.post("/api/container_powercap")
-        async def container_powercap(self,container_id : str = Form(...), kW : float = Form(...)):
+        async def container_powercap(container_id : str = Form(...), kW : float = Form(...)):
             try:
                 self.sim_set_container_powercap(container_id, kW)
                 self.send_redis_update()
