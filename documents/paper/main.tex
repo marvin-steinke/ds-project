@@ -1,0 +1,51 @@
+\documentclass[a4paper, twoside]{IEEEtran}
+\IEEEoverridecommandlockouts
+\usepackage{csquotes}
+\usepackage[english]{babel}
+\usepackage{cite}
+\usepackage{hyperref}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{tikz}
+\usepackage{etoolbox}
+\usepackage{url}
+
+% make urls work in biblatex
+\def\UrlBreaks{\do\/\do-}
+\apptocmd{\sloppy}{\hbadness 10000\relax}{}{}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{Integrating Ecovisor into Mosaik Co-Simulation}
+
+\author{Marvin Steinke and Henrik Nickel\\\textit{Technische Universität Berlin}}
+
+\markboth{Technische Universität Berlin, March 2023}{Steinke and Nickel:
+Integrating Ecovisor into Mosaik Co-Simulation}
+
+\maketitle
+
+\begin{abstract}
+\end{abstract}
+
+%\IEEEPARstart{A}{m}
+
+\section{Introduction}
+\input{sections/introduction}
+\section{Background}
+\input{sections/background}
+\section{Approach}
+\input{sections/approach}
+\section{Evaluation}
+\input{sections/evaluation}
+\section{Conclusion}
+\input{sections/conclusion}
+
+\bibliographystyle{IEEEtran}
+\bibliography{refs}
+
+\end{document}
