@@ -1,5 +1,6 @@
 \documentclass[a4paper, twoside]{IEEEtran}
 \IEEEoverridecommandlockouts
+\usepackage[noadjust]{cite}
 \usepackage{csquotes}
 \usepackage[english]{babel}
 \usepackage{cite}
@@ -13,11 +14,16 @@
 \usepackage{etoolbox}
 \usepackage{url}
 
+% group citations
+\renewcommand{\citepunct}{,\penalty\citepunctpenalty\,}
+\renewcommand{\citedash}{--}
+
 % make urls work in biblatex
 \def\UrlBreaks{\do\/\do-}
 \apptocmd{\sloppy}{\hbadness 10000\relax}{}{}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
 T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
 \begin{document}
 
 \title{Integrating Ecovisor into Mosaik Co-Simulation}
@@ -31,8 +37,6 @@ Integrating Ecovisor into Mosaik Co-Simulation}
 
 \begin{abstract}
 \end{abstract}
-
-%\IEEEPARstart{A}{m}
 
 \section{Introduction}
 \input{sections/introduction}
