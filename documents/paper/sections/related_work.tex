@@ -1,11 +1,30 @@
-Beilharz et al. \cite{beilharz2021} developed Marvis, a testing framework for
-distributed IoT applications. Marvis provides realistic staging environments for
-IoT applications by using a combination of virtual and physical nodes that
-communicate via virtual or physical networks. The domain environments in Marvis
-are modeled after the real-world environments in which the IoT applications will
-be used, and Marvis integrates simulators, emulators, and hardware testbeds to
-model the expected behavior of these environments. The experiments are executed
-in wall clock time to evaluate the timing effects of physical components.
-Beilharz et al. use hybrid co-simulation to integrate simulators into the
-testing environment, which involves the synchronized execution of systems with
-both discrete-event and continuous time behavior.
+The Software-In-The-Loop (SIL) methodology is frequently utilized during the
+creation of intricate systems as a means of conducting repeatable and manageable
+component testing.
+%TODO connect everything and explain why rw does not solve out problem
+
+Beilharz et al. \cite{beilharz2021} build upon the idea that a staging
+environment is necessary to improve IoT applications. They introduce Marvis, a
+framework that provides a comprehensive solution for testing distributed IoT
+applications. Marvis orchestrates hybrid testbeds, co-simulated domain
+environments, and a central network simulation to create a representative
+operating environment for the system. The framework provides a comprehensive
+solution for testing the complex communication behavior of IoT applications and
+is essential for improving their performance. Beilharz et al.'s preliminary
+results include an open source prototype and a demonstration of a
+Vehicle-to-everything (V2X) communication scenario, showcasing the potential of
+Marvis in testing and improving IoT applications.
+
+Hagenmeyer et al. \cite{hagenmeyer2016} investigate the interplay of different
+forms of energy on various value chains in Energy Lab 2.0. The focus is on
+finding novel concepts to stabilize the volatile energy supply of renewables
+through the use of storage systems and the application of information and
+communication technology tools and algorithms. The smart energy system
+simulation and control center is a key element of Energy Lab 2.0 and consists of
+three parts: a power-hardware-in-the-loop experimental field, an energy grid
+simulation and analysis laboratory, and a control, monitoring, and visualization
+center. The three labs emphasize the importance of big data technologies,
+advanced control methods, and reliable, safe, and secure software structures.
+Hagenmeyer et al. provide an example of a data processing pipeline to create
+power flow simulation models from raw Open Street Map data, statistical
+databases, and geodata.
