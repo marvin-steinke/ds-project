@@ -49,26 +49,32 @@ Though the creation of the Ecovisor is a promising solution to the issue of
 reducing the carbon footprint of cloud platforms, a large scale prototype for
 research and development purposes would not only be significantly cost
 intensive, but also time consuming. An alternative approach to consider is to
-simulate \emph{only} the Ecovisor infrastructure for real applications. This
-% TODO software in the loop (SIL)
-would allow for the optimization of energy usage in response to changes in the
-availability and carbon-intensity of renewable energy, without the need for a
-physical implementation. By simulating the Ecovisor, applications can still
-manage the instability of clean energy through software, but at a lower cost and
-with less time investment. \medskip
+simulate \emph{only} the Ecovisor infrastructure with real applications as a
+Software-In-The-Loop (SIL) implementation. This would allow for the optimization
+of energy usage in response to changes in the availability and carbon-intensity
+of renewable energy, without the need for a physical implementation. By
+simulating the Ecovisor, applications can still manage the instability of clean
+energy through software, but at a lower cost and with less time investment.
 
 To this end, we propose the utilization of a co-simulation tool, Mosaik, to
-integrate this Ecovisor simulation into and evaluate its impact on the carbon
+integrate this Ecovisor simulation into, and evaluate its impact on the carbon
 footprint of cloud platforms. Mosaik is a simulation framework for power
 systems, communication networks, and building automation, which can be used to
 model and analyze the performance of the Ecovisor in real-world applications
-\cite{steinbrink2019}.
-%TODO maybe put mosaik explanation below in backgroud?
-The use of Mosaik brings several benefits compared to
-traditional simulation methods. It offers a more flexible and scalable
-simulation environment, enabling the integration of multiple components and the
-simulation of large-scale systems. Furthermore, it offers a more accurate
-representation of the energy system, incorporating real-world data and
-parameters, which can be used to validate the performance of the Ecovisor.
+\cite{steinbrink2019}. \medskip
 
-% TODO The remainder of this article is structered...
+In the following sections of this article, we will commence by presenting the
+necessary contextual information in section \ref{sec:background} to ensure
+comprehension of our methodology. This includes simulation and co-simulation
+environments with focus on Mosaik, a closer examination of the Ecovisor
+infrastructure and its interface to applications, \dots. We will then review
+some related literature with similar approaches in section
+\ref{sec:related_work}. Finally, we present our approach of integrating the
+Ecovisor into Mosaik in section \ref{sec:approach}. The approach is divided into
+the simulation of the Ecovisor itself and the interface to external
+applications, beyond the scope of the co-simulation. We evaluate our approach in
+section \ref{sec:evaluation} with exemplary data, representing a realistic
+scenario that covers all edge cases. After discussing future research directions
+related to this article in section \ref{sec:future_work}, we conclude this
+article in section \ref{sec:conclusion} by summarizing the main points and
+contributions.
