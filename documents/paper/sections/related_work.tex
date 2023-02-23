@@ -1,13 +1,21 @@
-%TODO add some broader cluster refs to introduce
-The Software- (SIL) or Hardware-In-The-Loop (HIL) methodology is commonly
-utilized during the development of intricate systems as a means of conducting
-repeatable and manageable component testing. For instance, Beilharz et al.
-\cite{beilharz2021}, introduce Marvis, a framework that provides a comprehensive
-staging environment for testing distributed IoT applications. Marvis
-orchestrates hybrid testbeds, co-simulated domain environments, and a central
-network simulation to create a representative operating environment for the
-system. However, Marvis does not provide a virtualized energy system, which is
-crucial to meet the requirements of our problem statement.
+In research and development processes, the utilization of physical testbeds is a
+widespread practice \cite{cintuglu2017, mambretti2015}. They serve as a medium
+for testing and evaluating new technologies, systems, and products prior to
+their market launch or further development. However, some scenarios and
+conditions may not be feasible or safe to recreate in a physical testbed.
+Simulations can provide a controlled and cost-effective environment for testing
+such scenarios and conditions \cite{mansouri2020}. When specific physical or
+software components require a certain degree of realism though, simulations or
+co-simulations with Software- (SIL) or Hardware-In-The-Loop (HIL) methodologies
+can effectively address these limitations.
+
+For instance, Beilharz et al. \cite{beilharz2021}, introduce Marvis, a framework
+that provides a comprehensive staging environment for testing distributed IoT
+applications. Marvis orchestrates hybrid testbeds, co-simulated domain
+environments, and a central network simulation to create a representative
+operating environment for the system. However, Marvis does not provide a
+virtualized energy system, which is crucial to meet the requirements of our
+problem statement.
 
 Hagenmeyer et al. \cite{hagenmeyer2016} investigate the interplay of different
 forms of energy on various value chains in Energy Lab 2.0. The focus is on
@@ -22,3 +30,7 @@ Ecovisor in our approach, the control center is the only entity with
 software-based control over this energy system. The Ecovisor infrastructure,
 however, provides multiple applications with the ability to manage their energy
 supply themselves which is an essential factor for our approach.
+
+In conclusion, to the best of our knowledge, there is no current approach that
+can simulate an energy system virtualizer with software-based control,
+comparable to the Ecovisor, with SIL capabilities.
