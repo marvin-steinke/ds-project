@@ -26,7 +26,7 @@ class EcovisorModel:
         
     def step(self):
         #get updated values from redis
-        #ToDo Lock DB
+        #self.send_redis_update()
         self.get_redis_update()
         remaining = self.consumption - self.solar_power
         # excess (or equal) solar power
@@ -63,12 +63,14 @@ class EcovisorModel:
         data_dict = self.redis.mget(key_dict)
         data_dict = dict(zip(key_dict,data_dict))        
         #print(data_dict)
-        self.solar_power = float(data_dict["solar_power"])
-        self.grid_power = float(data_dict["grid_power"])
+        #self.solar_power = float(data_dict["solar_power"])
+        #self.grid_power = float(data_dict["grid_power"])
         self.battery_discharge_rate = float(data_dict["battery_discharge_rate"])
         self.battery_charge_level = float(data_dict["battery_charge_level"])
         self.container = self.redis.json().get("container")
-        self.grid_carbon = float(data_dict["grid_carbon"])
+        #self.grid_carbon = float(data_dict["grid_carbon"])
+        
+        #compute total consumption of consumers
         d_values = self.container.values()
         consumption = 0
         for value in d_values:
