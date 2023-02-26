@@ -24,6 +24,9 @@
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
 T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
+% not *that* bad
+%\hbadness=2521
+
 \begin{document}
 
 \title{Integrating Ecovisor into Mosaik Co-Simulation}
@@ -33,19 +36,41 @@ T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \maketitle
 
 \begin{abstract}
+    To reduce emissions, cloud platforms must increasingly rely on renewable
+    energy sources such as solar and wind power. Nevertheless, the issue of
+    volatility associated with these sources presents a significant challenge,
+    since current energy systems conceal such unreliability in hardware. Souza
+    et al. have devised a solution to this issue by creating an
+    \enquote{ecovisor}. This system virtualizes the energy infrastructure and
+    allows for software-defined control to be accessible by applications.
 \end{abstract}
 
 \section{Introduction}
+\label{sec:introduction}
 \input{sections/introduction}
+
 \section{Background}
+\label{sec:background}
 \input{sections/background}
+
 \section{Related Work}
+\label{sec:related_work}
 \input{sections/related_work}
+
 \section{Approach}
+\label{sec:approach}
 \input{sections/approach}
+
 \section{Evaluation}
+\label{sec:evaluation}
 \input{sections/evaluation}
+
+\section{Future Work}
+\label{sec:future_work}
+\input{sections/future_work}
+
 \section{Conclusion}
+\label{sec:conclusion}
 \input{sections/conclusion}
 
 \bibliographystyle{IEEEtran}
