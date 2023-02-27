@@ -13,6 +13,19 @@
 \usepackage{tikz}
 \usepackage{etoolbox}
 \usepackage{url}
+\usepackage[linesnumbered]{algorithm2e}
+
+% make algorithm2e work with IEEEtran
+\makeatletter
+\newcommand{\removelatexerror}{\let\@latex@error\@gobble}
+\makeatother
+
+% adjust algorithm2e to IEEEtran style
+\SetAlCapNameFnt{\footnotesize}
+\SetAlCapFnt{\footnotesize}
+
+% remove semicolons in algorithm env
+\BeforeBeginEnvironment{algorithm}{\DontPrintSemicolon}
 
 % group citations
 \renewcommand{\citepunct}{,\penalty\citepunctpenalty\,}
