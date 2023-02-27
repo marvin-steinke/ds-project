@@ -16,9 +16,16 @@ ToDo: Second itteration on writing
 For connecting the Ecovisor-Model to a real workload, we had to expose the API described in \cite{souza2023}. We have tried to implement it as it would probably be implemented in a real cloud environment. %source?
 To achive that, we implemented the API of the Ecoviser with a RedisDB as value store between the ecovisor and the api-server. This also ensures atomiticity on the writes of the values. %sourec
 
+The API integration itself cosists of three parts, the API-Server, the RedisDB and the Ecovisor-Redis-Interface
 %Picture API
+%\begin{figure}
+%    \centering
+%    \includegraphics[width=\linewidth]{}
+%    \caption{Ecovisor API}
+%    \label{fig:ecovisor_api}
+%\end{figure}
 
-%Picture Data-Flow (Values set by Ecovisor, Values set by Workload)
+
 
 \subsubsection{API-Server}
 The API Server exposes the Ecoviser-APi to the "Workloads". It is implemented with the FastAPI Framework and Utilizes Uviorn to handel multiple clients accessing the API.
@@ -29,11 +36,22 @@ the Ecovisor-Model and the RedisDB. This may be helpful in bigger simulations wi
 
 \subsubsection{RedisDB}
 The RedisDB is used to interchange the values provided by eiterh ecovisor or the workload application. The database itself is a fast in memory key value store, wich is started as a docker container via the docker python libary %quelle pyton lib
-to keep manual managment of the simulation to a minimum. 
+to keep manual managment of the simulation to a minimum.
 
-In general the Database can be exchanged with any other database by adapting the interface in the ecovisor model. This can be useful when simulation should be integrated 
+In general the Database can be exchanged with any other database by adapting the Ecovisor-Redis-Interface in the Ecovisor model. This can be useful when simulation should be integrated 
 in a production grade cloud environment like kubernetes or open stack.
 
 %values picture
 
 \subsubsection{Ecovisor-Redis-Interface}
+
+
+\subsubsection{Dataflow}
+%Picture Data-Flow (Values set by Ecovisor, Values set by Workload)
+%\begin{figure}
+%    \centering
+%    \includegraphics[width=\linewidth]{}
+%    \caption{Dataflow betwen Ecovisor and API Server}
+%    \label{fig:ecovisor_api}
+%\end{figure}
+
