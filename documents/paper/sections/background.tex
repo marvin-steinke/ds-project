@@ -27,14 +27,54 @@ issues that may arise in real-world scenarios \cite{kelemenova2013}.
 
 Mosaik is an open-source co-simulation tool that allows for the integration of
 different simulation models from various domains into a unified simulation
-environment. Mosaik provides a Python-based framework for developing and
-executing co-simulations, enabling the creation of complex simulations with
-interacting components. It supports the development of co-simulation scenarios
-by providing an API for defining simulation models, connecting them to form a
-simulation network, and specifying simulation scenarios. The tool also provides
-various visualization tools and data analysis capabilities to analyze the
-results of the simulation. Furthermore, Mosaik provides a library of
-pre-existing simulation models that can be used to build custom simulations.
+environment \cite{steinbrink2019}. Mosaik’s four main components enable
+communication between simulators and mosaik, the creation of simulation
+scenarios, the management of simulator processes, and the coordinated simulation
+of a scenario.\footnote{The information about the main components is adapted
+from the official documentation \cite{mosaik_docs}.}
+
+\begin{description}
+
+    \item[Mosaik Sim API.] The Mosaik Sim API provides a standardized
+        communication protocol for simulators and Mosaik to exchange
+        information. It utilizes plain network sockets and JSON encoded messages
+        to facilitate communication between simulators and Mosaik. Although the
+        API provides a low-level communication protocol, it is complemented by a
+        high-level API for some programming languages. The high-level API
+        abstracts the networking-related aspects of the communication protocol,
+        allowing users to focus on the core logic of their simulation models. To
+        use the high-level API, users only need to write a subclass and
+        implement a few required methods.
+
+    \item[Scenario API.] This empowers users to create simulation scenarios
+        entirely in Python. This API enables users to launch simulators, create
+        model instances, and generate entity sets that can be connected to
+        establish data flows between different simulators. With the Scenario
+        API, users can easily connect individual entities or entire sets of
+        entities to achieve their simulation goals.
+
+    \item[SimManager.] The Simulator Manager, or SimManager, handles simulator
+        processes and their communication with Mosaik. The SimManager can start
+        new simulator processes, connect to already running process instances,
+        and import a simulator module and execute it in-process if it is written
+        in Python 3. In-process execution reduces memory requirements and avoids
+        the overhead of serializing and sending messages over the network.
+        External processes, however, can be executed in parallel, which is not
+        possible with in-process simulators.
+
+    \item[Mosaik's Scheduler.] Mosaik's Scheduler uses the event-discrete
+        simulation library SimPy for the coordinated simulation of a scenario.
+        Mosaik supports time-discrete and event-discrete simulations, as well as
+        a combination of both paradigms. It can handle simulators with different
+        step sizes, and a simulator may vary its step size during the
+        simulation. Mosaik tracks the dependencies between simulators and only
+        lets them perform a simulation step if necessary. It is also able to let
+        multiple simulators perform their simulation step in parallel if they do
+        not depend on each other's data.
+
+\end{description}
+Furthermore, Mosaik provides a library of pre-existing simulation models that
+can be used to build custom simulations.
 
 \subsection[Ecovisor]{
     Ecovisor \footnote{The information presented in this section is a summary of
