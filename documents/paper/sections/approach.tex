@@ -92,19 +92,21 @@ in a production grade cloud environment like kubernetes or openstack.
 
 \subsubsection{Ecovisor-Redis-Interface}
 The interface from the ecovisor towards the redisdb is implemented within the ecovisor model. To simplify the usage, the redis python libary %source
-is used. The ecovisor model implements two methods, the get_redis_updates() and the send_redis_updates %methoden mit code abgleicehn und formatieren
+is used. The ecovisor model implements two methods, the
+\texttt{get\_redis\_updates()} and the \texttt{send\_redis\_updates} %methoden mit code abgleicehn und formatieren
 
-The get_redis_update method gets the values (...) as show in (ref) from the RedisDB %insert valzes and reference to the 
+The \texttt{get\_redis\_update} method gets the values (...) as show in (ref) from the RedisDB %insert valzes and reference to the 
 and writes it to the ecovisor model variables to make them usable for the ecovisor model.
 
-the send_redis_updates() method publishes the updated values from the other part of the simulation which are accessible by the ecoviser shwon in (ref) model to the redisdb to make it
+the \texttt{send\_redis\_updates()} method publishes the updated values from the other part of the simulation which are accessible by the ecoviser shwon in (ref) model to the redisdb to make it
 usable by the workload application. %raus wegen dopplung?
 
 In each step the ecovisor model first gets the updates from the RedisDB, processes the data and then sends the updated data to the RedisDB, to make it
 acessible to the workload application.  
 
 %code?
-\subsubsection{Dataflow}\label{subsec:dataflow}
+\subsubsection{Dataflow}
+\label{subsec:dataflow}
 %Picture Data-Flow (Values set by Ecovisor, Values set by Workload)
 %\begin{figure}
 %    \centering
