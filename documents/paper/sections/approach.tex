@@ -1,4 +1,4 @@
-% TODO units
+% TODO outline how multiple applications share the ecoviser/api
 
 Figure \ref{fig:system_design} illustrates our general system design approach
 that simulates the ecovisor infrastructure and integrates it into the Mosaik
@@ -20,7 +20,21 @@ following.
 \end{figure}
 
 \subsection{Simulation of the Ecovisor}
+% sim consists of multiple components, namely the ecoviser itself, pv sim and
+% agent, consumer sim and agent, explain what they do
+%
+% all models are time-based and 1 step = 1 second -> power is modeled in kWs
+%
+% sim runs in real time -> rt_factor=1
+% https://mosaik.readthedocs.io/en/latest/scenario-definition.html?highlight=real%20time#how-to-do-real-time-simulations
+%
+% monitoring through agent (maybe explain agent in background?)
+%
+% explain how the model in integrated in mosaik -> api, methods and what they do
+%
+% explain the virtual_energy_system_simulation with code
 
+% TODO comment code a bit
 \begin{figure}
     \removelatexerror
     \begin{algorithm}[H]
