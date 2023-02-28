@@ -51,7 +51,7 @@ following.
 \subsection{Interface to External Applications}
 %ToDo: Second itteration on writing
 
-For connecting the Ecovisor-Model to a real workload, we had to expose the API described in \cite{souza2023}. We have tried to implement it as it would probably be implemented in a real cloud environment. %source?
+For connecting the Ecovisor-Model to a real workload application, we had to expose the API described in \cite{souza2023}. We have tried to implement it as it would probably be implemented in a real cloud environment. %source?
 To achive that, we implemented the API of the Ecoviser with a RedisDB as value store between the ecovisor and the api-server. This also ensures atomiticity on the writes of the values. %sourec
 
 The API integration itself consists of three parts, the API-Server, the RedisDB and the Ecovisor-Redis-Interface which are described in the following sections.
