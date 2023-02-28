@@ -1,4 +1,4 @@
-% TODO units
+% TODO outline how multiple applications share the ecoviser/api
 
 Figure \ref{fig:system_design} illustrates our general system design approach
 that simulates the ecovisor infrastructure and integrates it into the Mosaik
@@ -20,7 +20,21 @@ following.
 \end{figure}
 
 \subsection{Simulation of the Ecovisor}
+% sim consists of multiple components, namely the ecoviser itself, pv sim and
+% agent, consumer sim and agent, explain what they do
+%
+% all models are time-based and 1 step = 1 second -> power is modeled in kWs
+%
+% sim runs in real time -> rt_factor=1
+% https://mosaik.readthedocs.io/en/latest/scenario-definition.html?highlight=real%20time#how-to-do-real-time-simulations
+%
+% monitoring through agent (maybe explain agent in background?)
+%
+% explain how the model in integrated in mosaik -> api, methods and what they do
+%
+% explain the virtual_energy_system_simulation with code
 
+% TODO comment code a bit
 \begin{figure}
     \removelatexerror
     \begin{algorithm}[H]
@@ -69,7 +83,7 @@ The API integration itself consists of three parts, the API-Server, the RedisDB 
 The API Server exposes the Ecoviser-API to the "Workloads". It is implemented with the FastAPI Framework and Utilizes Uviorn to handel multiple clients accessing the API.
 The Module is started as aan independent thread. In earlyer versions we tried to implement it inside of the ecovisor model, but due to the way uvicorn starts the API-Server,
 it would stops the execution of the simulation until the API-Server is stopped and so we decided to design it as a standalone module. This als enables the API-Server to be scaled indipendetn from
-the Ecovisor-Model and the RedisDB. This may be helpful in bigger simulations with distributed infrastructur. 
+the Ecovisor-Model and the RedisDB. This may be helpful in bigger simulations with distributed infrastructur.
 
 
 \subsubsection{RedisDB}
@@ -79,7 +93,7 @@ to keep manual managment of the simulation to a minimum.
 Since the values are updated in one write atomicity is ensured, but due to the dataflow described in \ref{subsec:dataflow}
 atomicity isnot requierd to keep the values consistent.
 
-In general the Database can be exchanged with any other database by adapting the Ecovisor-Redis-Interface in the Ecovisor model. This can be useful when simulation should be integrated 
+In general the Database can be exchanged with any other database by adapting the Ecovisor-Redis-Interface in the Ecovisor model. This can be useful when simulation should be integrated
 in a production grade cloud environment like kubernetes or openstack.
 
 %values picture
@@ -92,19 +106,21 @@ in a production grade cloud environment like kubernetes or openstack.
 
 \subsubsection{Ecovisor-Redis-Interface}
 The interface from the ecovisor towards the redisdb is implemented within the ecovisor model. To simplify the usage, the redis python libary %source
-is used. The ecovisor model implements two methods, the get_redis_updates() and the send_redis_updates %methoden mit code abgleicehn und formatieren
+is used. The ecovisor model implements two methods, the
+\texttt{get\_redis\_updates()} and the \texttt{send\_redis\_updates} %methoden mit code abgleicehn und formatieren
 
-The get_redis_update method gets the values (...) as show in (ref) from the RedisDB %insert valzes and reference to the 
+The \texttt{get\_redis\_update} method gets the values (...) as show in (ref) from the RedisDB %insert valzes and reference to the
 and writes it to the ecovisor model variables to make them usable for the ecovisor model.
 
-the send_redis_updates() method publishes the updated values from the other part of the simulation which are accessible by the ecoviser shwon in (ref) model to the redisdb to make it
+the \texttt{send\_redis\_updates()} method publishes the updated values from the other part of the simulation which are accessible by the ecoviser shwon in (ref) model to the redisdb to make it
 usable by the workload application. %raus wegen dopplung?
 
 In each step the ecovisor model first gets the updates from the RedisDB, processes the data and then sends the updated data to the RedisDB, to make it
-acessible to the workload application.  
+acessible to the workload application.
 
 %code?
-\subsubsection{Dataflow}\label{subsec:dataflow}
+\subsubsection{Dataflow}
+\label{subsec:dataflow}
 %Picture Data-Flow (Values set by Ecovisor, Values set by Workload)
 %\begin{figure}
 %    \centering
@@ -115,9 +131,9 @@ acessible to the workload application.
 
 The Values/Data shown in (ref) is exchanged between the ecovisor model and the API server via the RedisDB. There are two main streams of the dataexchange.
 First from the ecovisor model to the API-Server and second from the API-Server to the ecovisor model. There are no values which are used in both streams, which makes things
-easier in terms of consistency and parallel access. 
+easier in terms of consistency and parallel access.
 
-As stated before, the data is updated in each simulation step. (ref) 
+As stated before, the data is updated in each simulation step. (ref)
 In the downstream, from the ecovisor to the API-Server the values (...) are updated and can be consumed by the workload applications
 and in the upstream, from the api-server to the ecovisor model, the values (...) are updated and used by the ecovisor model to calculate (...) %abgleich mit code
 %referenz bild einbinden
