@@ -13,7 +13,13 @@ META = {
     'models': {
         'EcovisorModel': {
             'public': True,
-            'params': ['battery_charge_level'],
+            'params': [
+                'carbon_datafile',
+                'carbon_conversion_factor',
+                'sim_start',
+                'battery_capacity',
+                'battery_charge_level'
+            ],
             'attrs': [
                 'consumption',
                 'battery_charge_rate',
