@@ -30,6 +30,7 @@
     \end{tikzpicture}
 }
 \setbeamertemplate{itemize item}[triangle]
+\setbeamertemplate{itemize subitem}[square]
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{footline}[text line]{%
   \parbox{0.8\linewidth}{
@@ -49,4 +50,7 @@
 \makeatletter
 \renewcommand*{\footnoterule}{\kern -1mm \hrule \@width 6cm \kern 3mm}
 \makeatother
-\newcommand{\arrow}{\Large \MVRightarrow}
+\let\OLDitemize\itemize
+\renewcommand\itemize{\OLDitemize\addtolength{\itemsep}{5pt}}
+\newcommand{\arrow}{{\Large \MVRightarrow}}
+\setbeamerfont{caption}{size=\scriptsize}

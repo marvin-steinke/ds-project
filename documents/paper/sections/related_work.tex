@@ -1,0 +1,36 @@
+In research and development processes, the utilization of physical testbeds is a
+widespread practice \cite{cintuglu2017, mambretti2015}. They serve as a medium
+for testing and evaluating new technologies, systems, and products prior to
+their market launch or further development. However, some scenarios and
+conditions may not be feasible or safe to recreate in a physical testbed.
+Simulations can provide a controlled and cost-effective environment for testing
+such scenarios and conditions \cite{mansouri2020}. When specific physical or
+software components require a certain degree of realism though, simulations or
+co-simulations with SIL or HIL methodologies can effectively address these
+limitations.
+
+For instance, Beilharz et al. \cite{beilharz2021}, introduce Marvis, a framework
+that provides a comprehensive staging environment for testing distributed IoT
+applications. Marvis orchestrates hybrid testbeds, co-simulated domain
+environments, and a central network simulation to create a representative
+operating environment for the system. However, Marvis does not provide a
+virtualized energy system, which is crucial to meet the requirements of our
+problem statement.
+
+Hagenmeyer et al. \cite{hagenmeyer2016} investigate the interplay of different
+forms of energy on various value chains in Energy Lab 2.0. The focus is on
+finding novel concepts to stabilize the volatile energy supply of renewables
+through the use of storage systems and the application of information and
+communication technology tools and algorithms. The smart energy system
+simulation and control center is a key element of Energy Lab 2.0 and consists of
+three parts: a power-hardware-in-the-loop experimental field, an energy grid
+simulation and analysis laboratory, and a control, monitoring, and visualization
+center. While this smart energy system simulation is similar to the simulated
+ecovisor in our approach, the control center is the only entity with
+software-based control over this energy system. The ecovisor infrastructure,
+however, provides multiple applications with the ability to manage their energy
+supply themselves which is an essential factor for our approach.
+
+In conclusion, to the best of our knowledge, there is no current approach that
+can simulate an energy system virtualizer with software-based control,
+comparable to the ecovisor, with SIL capabilities.

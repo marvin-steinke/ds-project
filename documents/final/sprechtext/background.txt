@@ -4,7 +4,10 @@ application to handle clean energy's unreliability in software based on its
 specific requirements. A small-scale prototype - on the right - was created and
 evaluated, showing that multiple applications can concurrently exercise their
 virtual energy system in different ways to better optimize carbon-efficiency
-based on their specific requirements. [30s]
+based on their specific requirements.
+
+[hier ein wenig mit der figure vom ecovisor arbeiten und die API schnittstelle
+als hauptmerkmal für unser projekt erklären]
 
 Mosaik is an open-source co-simulation framework that allows users to simulate
 large, complex systems by combining multiple simulations of smaller, simpler
