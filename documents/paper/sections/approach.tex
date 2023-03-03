@@ -53,9 +53,22 @@ ecovisor. The controller can be initialized with e.g. a power conversion factor
 to allow for the use of different measurement units in the datasets, as the
 standard power unit utilized in the ecovisor is kW.
 
-%The simulated ecovisor is abstracted from the original design. Our approach does
-%not implement a COP/Hypervisor. We
-
+Our approach does not implement a COP/Hypervisor. In the ecovisor, the COP
+serves the primary purpose of granting containerized applications control over
+their power consumption. Table \ref{table:ecovisor_api} shows that each
+container can use the \texttt{set\_container\_powercap()} function to set their
+power consumption limit. The ecovisor measures the power consumption of the
+container using PowerAPI \cite{bourdon2013} and applies limits on resource
+utilization using cgroups. The issue with PowerAPI is that it relies on
+dedicated hardware equipped with sensors to collect raw data on software power
+consumption. This collected data is then processed by a computational module
+that utilizes a formula to \emph{estimate} the power consumption. A key
+motivation behind the integration of the ecovisor into a co-simulation is to
+create an affordable and accessible platform for researching and developing
+carbon-aware applications. As power consumption measurement and control can vary
+greatly depending on the research and development environment, we have chosen to
+avoid implementing a specific strategy in order to allow for greater flexibility
+and freedom.
 
 % TODO comment code a bit
 \begin{figure}
@@ -90,7 +103,7 @@ standard power unit utilized in the ecovisor is kW.
 
 To connect the Ecovisor-Model to a real workload-application, we exposed the API which is described in \cite{souza2023} to containerized workloads.we have tried to implement it in a way that is as close as possible to a real implementation in a cloud environment.
 To achieve that, we implemented the Ecovisor-API from \cite{souza2023}, which can be seen in \ref{table:ecovisor_api}, into an FastAPI server\footnote{https://fastapi.tiangolo.com}. %TODO fußnote oder quelle?
-The API-Server is connected to a RedisDB\footnote{https://redis.io}, which serves as a key-value store and links the API-Server to the Ecovisor-Model. 
+The API-Server is connected to a RedisDB\footnote{https://redis.io}, which serves as a key-value store and links the API-Server to the Ecovisor-Model.
 The Ecovisor-Model itself implements an Redis-Interface to read and write data from the RedisDB.
 In the following three sections we will describe these three parts of the \textit{External Application Interface} in depth.
 %TODO Gründe für den arch ansatz
