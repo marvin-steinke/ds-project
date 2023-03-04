@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{+w}{	}\PYG{p}{\PYGZob{}}
+\PYG{+w}{		}\PYG{l+s+s2}{\PYGZdq{}solar\PYGZus{}power\PYGZdq{}}\PYG{+w}{				}\PYG{o}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{		}\PYG{l+s+s2}{\PYGZdq{}grid\PYGZus{}power\PYGZdq{}}\PYG{+w}{ 				}\PYG{o}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{		}\PYG{l+s+s2}{\PYGZdq{}grid\PYGZus{}carbon\PYGZdq{}}\PYG{+w}{				}\PYG{o}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{		}\PYG{l+s+s2}{\PYGZdq{}battery\PYGZus{}discharge\PYGZus{}rate\PYGZdq{}}\PYG{+w}{	}\PYG{o}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{		}\PYG{l+s+s2}{\PYGZdq{}battery\PYGZus{}charge\PYGZus{}level\PYGZdq{}}\PYG{+w}{ 		}\PYG{o}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}}\PYG{+w}{			}
+\PYG{+w}{	}\PYG{p}{\PYGZcb{}}
+\end{Verbatim}
