@@ -99,19 +99,19 @@ and freedom.
 \end{figure}
 
 \subsection{Interface to External Applications}
-%TODO: Second itteration on writing
+
 
 To connect the Ecovisor-Model to a real workload-application, we exposed the API which is described in \cite{souza2023} to containerized workloads.we have tried to implement it in a way that is as close as possible to a real implementation in a cloud environment.
 To achieve that, we implemented the Ecovisor-API from \cite{souza2023}, which can be seen in \ref{table:ecovisor_api}, into an FastAPI server \cite{fastapi}.
 The API-Server is connected to a RedisDB\cite{redis}, which serves as a key-value store and links the API-Server to the Ecovisor-Model. 
 The Ecovisor-Model itself implements an Redis-Interface to read and write data from the RedisDB.
 In the following three sections we will describe these three parts of the \textit{External Application Interface} in depth.
-%TODO Gründe für den arch ansatz
+%TODO evtl. Gründe für den arch ansatz
 
 \subsubsection{API-Server}
 The API-Server exposes the Ecovisor-API to the "Workloads". It is implemented with the FastAPI Framework and utilizes the Uvicorn Web-Server \cite{uvicorn} to handle multiple clients accessing the API. Due to the ASGI (Asynchronous Server Gateway Interface) nature of the Web-Server, the module is started as a independent thread. The advantage of this, is that the server can handle multiple clients, which will be useful when multiple workloads will be connected to the simulation. On the other hand, the implementation into the system is more difficult, so that we decided to start the module independently. In earlier versions we tried to implement it inside of the Ecovisor-Model, but it would stops the execution of the simulation until the API-Server is stopped which renders the system unusable. This also enables the API-Server to be scaled independent from the Ecovisor-Model and the RedisDB. This may be helpful in bigger simulations with distributed infrastructure.
 %We did not implement the\textit{tick} from the Ecovisor-API, since we do not use it at the moment.
-%TODO tick
+%TODO evtl. tick
 
 \subsubsection{RedisDB}
 The RedisDB is a fast, in memory, key-value store for simple data-types. In our system, it is used to save and provide the data from within the Ecovisor-Model to the API-Server. To keep the operability of the simulation simple, the RedisDB is started as a Docker Container via the docker python library \cite{docker_python}, which implements the docker engine API into python. The container image we used is the redislabs rejson redis image \cite{RedisJSON}. This images extends the RedisDB image with the capability to process JSON values. The Redis-Container is started right at the beginng of the simulation, so that it is up and operational when the first data is available. After the end of the simulation, the container is stopped and deleted to keep the test environment free of remnants of t he simulation. 
@@ -163,8 +163,6 @@ The \texttt{get\_redis\_update()} method is called at the beginning of the \text
 the \texttt{send\_redis\_updates()} method is called at the end of the \texttt{step()} method and  publishes the updated values from the Ecovisor-Model. This includes data from the other part of the simulation which is accessible by the Ecovisor-Model.
 The data is exchanged to the RedisDB with the data-structure shown in \ref{alg:energy_JSON} and made accessible to the workload application via the API-Server. 
 
-To conclude the process. In each step the Ecovisor-Model first gets the updates from the RedisDB, processes the data and then sends the updated data to the RedisDB, to make it
-accessible to the workload application.
 
 
 \subsubsection{Dataflow}
@@ -176,12 +174,10 @@ accessible to the workload application.
     \label{fig:dataflow}
 \end{figure}
 
-The Values/Data shown in (ref) is exchanged between the ecovisor model and the API server via the RedisDB. There are two main streams of the dataexchange.
-First from the ecovisor model to the API-Server and second from the API-Server to the ecovisor model. There are no values which are used in both streams, which makes things
-easier in terms of consistency and parallel access.
+In \ref{fig:dataflow}, the exchange of data between the API-Server and the Ecovisor-Model is visualized. As we can see, there ar two different data-streams, the upstream from, the API-Server to the Ecovisor-Model and the downstream, from the Ecovisor-Model to the API-Server.
+Neither in the upstream nor in the downstream are values which are written in both endpoints. The setter methods from \ref{table:ecovisor_api}, which are accessed by the workload applications, only affect the values \texttt{container\_powercap}, \texttt{battery\_charge\_rate} and \texttt{battery\_max\_discharge}. These values are only read in the Ecovisor-Model. On the other side, the values written by the Ecovisor-Model are only accessible via the getter-methods of the API. This setting ensures the data-consistency, since none of the values can be written in parallel. Theoretically, the RedisDB supports atomic writes to ensure data-consistency \cite{redis}, but the feature is not needed in our setup.
 
-As stated before, the data is updated in each simulation step. (ref)
-In the downstream, from the ecovisor to the API-Server the values (...) are updated and can be consumed by the workload applications
-and in the upstream, from the api-server to the ecovisor model, the values (...) are updated and used by the ecovisor model to calculate (...) %abgleich mit code
-%TODO referenz bild einbinden
+To model the whole dataflow: In each step the Ecovisor-Model first gets the updates from the RedisDB, processes the data and then sends the updated data to the RedisDB, to make it accessible to the workload application. Updates send by the workload applications will be processed at the latest in the next call of the \texttt{step()} method. This process describes the whole data-flow between the Ecovisor-Model and the APi-Server and also the workload applications.
+
+
 
