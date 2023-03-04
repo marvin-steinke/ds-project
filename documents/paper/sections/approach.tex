@@ -1,4 +1,4 @@
-% TODO outline how multiple applications share the ecoviser/api
+% TODO outline how multiple applications share the ecovisor/api
 
 Figure \ref{fig:system_design} illustrates our general system design approach
 that simulates the ecovisor infrastructure and integrates it into the Mosaik
@@ -20,7 +20,7 @@ following.
 \end{figure}
 
 \subsection{Simulation of the Ecovisor}
-% sim consists of multiple components, namely the ecoviser itself, pv sim and
+% sim consists of multiple components, namely the ecovisor itself, pv sim and
 % agent, consumer sim and agent, explain what they do
 %
 % explain how the model in integrated in mosaik -> api, methods and what they do
@@ -53,6 +53,29 @@ ecovisor. The controller can be initialized with e.g. a power conversion factor
 to allow for the use of different measurement units in the datasets, as the
 standard power unit utilized in the ecovisor is kW.
 
+The simulated ecovisor holds all necessary variables to enable the API in Table
+\ref{table:ecovisor_api}. This includes instances of a simple battery and
+energy-grid model. The Simple Battery model can be configured with a capacity
+and an initial charge. For every simulation step, the charge is incremented by
+the delta value. The Simple Energy-Grid model reads carbon information from a
+CSV dataset, either every simulation step line by line, or for a specific point
+in time.
+
+The simulation of the ecovisor's virtual energy system is realized in Algorithm
+\ref{alg:virtual_energy_system_simulation}. Like its original counterpart, the
+system prioritizes the utilization of virtual solar power to fulfill energy
+requirements in line 1. The power values are centered around consumption.
+Because solar power is \emph{adding} power to the system, its value is negative.
+Therefore, if \texttt{rest} is negative or zero in line 2, there is extra solar
+power and the battery does not discharge in line 3. In cases where solar power
+is insufficient, the virtual energy system resorts to battery to compensate for
+the shortfall in lines 5 -- 9. The discharge rate of the battery then depends on
+its maximum discharge rate, the charge level of the battery and the power that
+is attempted to be drawn. If the battery can not supply sufficient power, the
+remaining power is being drawn from the grid in line 12. Lines 13 -- 15 then
+adjust the battery's charge. Finally lines 16 -- 18 determine the carbon
+concentration for the simulation step.
+
 Our approach does not implement a COP/Hypervisor. In the ecovisor, the COP
 serves the primary purpose of granting containerized applications control over
 their power consumption. Table \ref{table:ecovisor_api} shows that each
@@ -70,7 +93,6 @@ greatly depending on the research and development environment, we have chosen to
 avoid implementing a specific strategy in order to allow for greater flexibility
 and freedom.
 
-% TODO comment code a bit
 \begin{figure}
     \removelatexerror
     \begin{algorithm}[H]
@@ -78,8 +100,10 @@ and freedom.
         \label{alg:virtual_energy_system_simulation}
         $rest \gets consumption - solar$\;
         \eIf{$rest \leq 0$} {
+            \tcp{excess (or equal) solar power}
             $b\_discharge\_rate \gets 0$\;
         }{
+            \tcp{solar power is insufficient \mbox{$\rightarrow$ use battery}}
             $b\_discharge\_rate \gets \text{min}($\;
             \Indp
                 $b\_max\_discharge,$\;
@@ -89,10 +113,15 @@ and freedom.
             $)$\;
             $rest \gets rest - b\_discharge\_rate$\;
         }
+        \tcp{draw remaining power from grid}
         $grid\_power \gets b\_charge\_rate + rest$\;
+        \tcp{adjust battery charge}
         $b.delta \gets b\_charge\_rate - b\_discharge\_rate$\;
         $b.step()$\;
         $b\_charge\_level \gets b.charge$\;
+        \tcp{determine carbon concentration for step}
+        $energy\_grid.step()$\;
+        $grid\_carbon \gets energy\_grid.carbon$\;
         $total\_carbon \gets grid\_carbon \cdot grid\_power$\;
         \vspace{3mm}
     \end{algorithm}
@@ -162,8 +191,6 @@ The \texttt{get\_redis\_update()} method is called at the beginning of the \text
 
 the \texttt{send\_redis\_updates()} method is called at the end of the \texttt{step()} method and  publishes the updated values from the Ecovisor-Model. This includes data from the other part of the simulation which is accessible by the Ecovisor-Model.
 The data is exchanged to the RedisDB with the data-structure shown in \ref{alg:energy_JSON} and made accessible to the workload application via the API-Server. 
-
-
 
 \subsubsection{Dataflow}
 \label{subsec:dataflow}
