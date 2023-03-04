@@ -1,0 +1,7 @@
+To evaluate the functionality of our system, we designed a test-case to show, that the calculations of the Ecovisor-Model and the data-flow between the Ecovisor-Model and the API-server works as intended.
+
+\subsection{Test-Case}
+For the Test-Case, is divided in three different phases. The phases are characterized by the availability of energy type in the phase. In the first phase, the system has runs on solar power, in the second phase the system runs on battery power and in the third phase, the system runs on grid power. With this allocation, we can test the functionality of the Ecovisor-Model to handle the different energy types. As input for the different energy types, we use forged data. The data is forged in a way, so that the powerlevel is static for solar power and grid power and that the battery runs out after a fixed amount of time. As workload application, we use a simple python script which only calls the values from the API and sets a static \textit{container powercap}.
+
+%TODO visualisierung testdaten und python script workload application
+\subsection{Result}
