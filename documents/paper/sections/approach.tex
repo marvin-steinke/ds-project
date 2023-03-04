@@ -128,7 +128,7 @@ in a production grade cloud environment like kubernetes or openstack.
 \begin{figure}
 	\removelatexerror
 	\begin{algorithm}[H]
-		\caption{Energy Data JSON with explantion}
+		\caption{Energy Data JSON structur}
 		\label{alg:energy_JSON}
 		\{\;
 			$"solar\_power" : "0\: kW",$\;
@@ -144,7 +144,7 @@ in a production grade cloud environment like kubernetes or openstack.
 \begin{figure}
 	\removelatexerror
 	\begin{algorithm}[H]
-		\caption{Container Power Cap JSON with explanation}
+		\caption{Container Power Cap JSON structur}
 		\label{alg:container_JSON}
 		\{\;
 		$"Container\_ID\: 1" : "Power\: Cap\: 0\: kW",$\;
@@ -156,29 +156,23 @@ in a production grade cloud environment like kubernetes or openstack.
 \end{figure}
 
 \subsubsection{Ecovisor-Redis-Interface}
-The interface towards the RedisDB is implemented within the Ecovisor-Model. To simplify the access, the Redis-py library \cite{Redis-py} is used. The Ecovisor-Model implements two methods, the
-\texttt{get\_redis\_updates()} and the \texttt{send\_redis\_update()}.
+The interface towards the RedisDB is implemented within the Ecovisor-Model. To simplify the access, the Redis-py library \cite{Redis-py} is used. The Ecovisor-Model implements two methods, the \texttt{get\_redis\_updates()} and the \texttt{send\_redis\_update()}. 
 
-The \texttt{get\_redis\_update} method is called at the beginning of the \texttt{step()} method in the Ecovisor-Model, which updates the simulation. It updates the values \textit{battery\_discharge\_rate},
-\textit{battery\_charge\_level} and the \textit{container\_power\_caps}. These values are used in the following "power" calculations in the Ecovisor-Model.
+The \texttt{get\_redis\_update()} method is called at the beginning of the \texttt{step()} method in the Ecovisor-Model, which updates the simulation. It updates the values \texttt{battery\_discharge\_rate}, \texttt{battery\_charge\_level} and the \texttt{container\_power\_caps}. These values are used in the following "power" calculations in the Ecovisor-Model. To exchange the Data with the RedisDB, the data-structure shown in \ref{alg:energy_JSON} is used. To simplify the implementation, all values in \ref{alg:energy_JSON} are pulled from the RedisDB, but only the values named before are updated and used. Additionally the data-structure \ref{alg:container_JSON} is used to update the \texttt{container\_power\_cap} of the different workload applications. 
 
-gets the values shown in (ref) from the RedisDB %TODO insert valzes and reference to the
-and writes it to the ecovisor model variables to make them usable for the ecovisor model.
+the \texttt{send\_redis\_updates()} method is called at the end of the \texttt{step()} method and  publishes the updated values from the Ecovisor-Model. This includes data from the other part of the simulation which is accessible by the Ecovisor-Model.
+The data is exchanged to the RedisDB with the data-structure shown in \ref{alg:energy_JSON} and made accessible to the workload application via the API-Server. 
 
-the \texttt{send\_redis\_updates()} method publishes the updated values from the other part of the simulation which are accessible by the ecoviser shwon in (ref) model to the redisdb to make it
-usable by the workload application. %TODO raus wegen dopplung?
+To conclude the process. In each step the Ecovisor-Model first gets the updates from the RedisDB, processes the data and then sends the updated data to the RedisDB, to make it
+accessible to the workload application.
 
-In each step the ecovisor model first gets the updates from the RedisDB, processes the data and then sends the updated data to the RedisDB, to make it
-acessible to the workload application.
 
-%code?
 \subsubsection{Dataflow}
 \label{subsec:dataflow}
-%TODO Picture Data-Flow (Values set by Ecovisor, Values set by Workload)
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{figures/Dataflow.drawio.png}
-    \caption{Dataflow betwen Ecovisor-Model and API Server}
+    \caption{Data-flow between Ecovisor-Model and API Server}
     \label{fig:dataflow}
 \end{figure}
 
