@@ -20,21 +20,6 @@ following.
 \end{figure}
 
 \subsection{Simulation of the Ecovisor}
-% sim consists of multiple components, namely the ecovisor itself, pv sim and
-% agent, consumer sim and agent, explain what they do
-%
-% explain how the model in integrated in mosaik -> api, methods and what they do
-% maybe to background?
-%
-% explain the virtual_energy_system_simulation with code
-%
-% sim runs in real time -> rt_factor=1
-% https://mosaik.readthedocs.io/en/latest/scenario-definition.html?highlight=real%20time#how-to-do-real-time-simulations
-%
-% all models are time-based and 1 step = 1 second -> power is modeled in kWs
-%
-% monitoring through agent (maybe explain agent in background?)
-
 The simulation part of our approach is fully contained within the Mosaik
 co-simulation environment. In Figure \ref{fig:system_design} this includes the
 photo-voltaic (PV) module, the ecovisor and a consumer simulator. The consumer
@@ -60,6 +45,12 @@ and an initial charge. For every simulation step, the charge is incremented by
 the delta value. The Simple Energy-Grid model reads carbon information from a
 CSV dataset, either every simulation step line by line, or for a specific point
 in time.
+
+Because the co-simulation runs in real or \enquote{wall-clock} time, the Mosaik
+scenario needs to be executed with \texttt{rt\_factor=1}. Most models in our
+approach are time-based and one simulation step always translates to one second
+in real-time in our environment. Therefore, we only model power as energy,
+making the standard unit for our approach kWs instead of kW.
 
 The simulation of the ecovisor's virtual energy system is realized in Algorithm
 \ref{alg:virtual_energy_system_simulation}. Like its original counterpart, the
@@ -132,7 +123,7 @@ and freedom.
 
 To connect the Ecovisor-Model to a real workload-application, we exposed the API which is described in \cite{souza2023} to containerized workloads.we have tried to implement it in a way that is as close as possible to a real implementation in a cloud environment.
 To achieve that, we implemented the Ecovisor-API from \cite{souza2023}, which can be seen in \ref{table:ecovisor_api}, into an FastAPI server \cite{fastapi}.
-The API-Server is connected to a RedisDB\cite{redis}, which serves as a key-value store and links the API-Server to the Ecovisor-Model. 
+The API-Server is connected to a RedisDB\cite{redis}, which serves as a key-value store and links the API-Server to the Ecovisor-Model.
 The Ecovisor-Model itself implements an Redis-Interface to read and write data from the RedisDB.
 In the following three sections we will describe these three parts of the \textit{External Application Interface} in depth.
 %TODO evtl. Gründe für den arch ansatz
@@ -143,7 +134,7 @@ The API-Server exposes the Ecovisor-API to the "Workloads". It is implemented wi
 %TODO evtl. tick
 
 \subsubsection{RedisDB}
-The RedisDB is a fast, in memory, key-value store for simple data-types. In our system, it is used to save and provide the data from within the Ecovisor-Model to the API-Server. To keep the operability of the simulation simple, the RedisDB is started as a Docker Container via the docker python library \cite{docker_python}, which implements the docker engine API into python. The container image we used is the redislabs rejson redis image \cite{RedisJSON}. This images extends the RedisDB image with the capability to process JSON values. The Redis-Container is started right at the beginng of the simulation, so that it is up and operational when the first data is available. After the end of the simulation, the container is stopped and deleted to keep the test environment free of remnants of t he simulation. 
+The RedisDB is a fast, in memory, key-value store for simple data-types. In our system, it is used to save and provide the data from within the Ecovisor-Model to the API-Server. To keep the operability of the simulation simple, the RedisDB is started as a Docker Container via the docker python library \cite{docker_python}, which implements the docker engine API into python. The container image we used is the redislabs rejson redis image \cite{RedisJSON}. This images extends the RedisDB image with the capability to process JSON values. The Redis-Container is started right at the beginng of the simulation, so that it is up and operational when the first data is available. After the end of the simulation, the container is stopped and deleted to keep the test environment free of remnants of t he simulation.
 In general the database can easily be exchanged with any other database by adapting the Ecovisor-Redis-Interface in the Ecovisor-Model. This can be useful when simulation should be integrated
 in a production grade cloud environment like kubernetes or openstack.
 
@@ -185,12 +176,12 @@ in a production grade cloud environment like kubernetes or openstack.
 \end{figure}
 
 \subsubsection{Ecovisor-Redis-Interface}
-The interface towards the RedisDB is implemented within the Ecovisor-Model. To simplify the access, the Redis-py library \cite{Redis-py} is used. The Ecovisor-Model implements two methods, the \texttt{get\_redis\_updates()} and the \texttt{send\_redis\_update()}. 
+The interface towards the RedisDB is implemented within the Ecovisor-Model. To simplify the access, the Redis-py library \cite{Redis-py} is used. The Ecovisor-Model implements two methods, the \texttt{get\_redis\_updates()} and the \texttt{send\_redis\_update()}.
 
-The \texttt{get\_redis\_update()} method is called at the beginning of the \texttt{step()} method in the Ecovisor-Model, which updates the simulation. It updates the values \texttt{battery\_discharge\_rate}, \texttt{battery\_charge\_level} and the \texttt{container\_power\_caps}. These values are used in the following "power" calculations in the Ecovisor-Model. To exchange the Data with the RedisDB, the data-structure shown in \ref{alg:energy_JSON} is used. To simplify the implementation, all values in \ref{alg:energy_JSON} are pulled from the RedisDB, but only the values named before are updated and used. Additionally the data-structure \ref{alg:container_JSON} is used to update the \texttt{container\_power\_cap} of the different workload applications. 
+The \texttt{get\_redis\_update()} method is called at the beginning of the \texttt{step()} method in the Ecovisor-Model, which updates the simulation. It updates the values \texttt{battery\_discharge\_rate}, \texttt{battery\_charge\_level} and the \texttt{container\_power\_caps}. These values are used in the following "power" calculations in the Ecovisor-Model. To exchange the Data with the RedisDB, the data-structure shown in \ref{alg:energy_JSON} is used. To simplify the implementation, all values in \ref{alg:energy_JSON} are pulled from the RedisDB, but only the values named before are updated and used. Additionally the data-structure \ref{alg:container_JSON} is used to update the \texttt{container\_power\_cap} of the different workload applications.
 
 the \texttt{send\_redis\_updates()} method is called at the end of the \texttt{step()} method and  publishes the updated values from the Ecovisor-Model. This includes data from the other part of the simulation which is accessible by the Ecovisor-Model.
-The data is exchanged to the RedisDB with the data-structure shown in \ref{alg:energy_JSON} and made accessible to the workload application via the API-Server. 
+The data is exchanged to the RedisDB with the data-structure shown in \ref{alg:energy_JSON} and made accessible to the workload application via the API-Server.
 
 \subsubsection{Dataflow}
 \label{subsec:dataflow}
