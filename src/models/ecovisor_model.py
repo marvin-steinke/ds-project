@@ -36,5 +36,6 @@ class EcovisorModel:
         self.battery.delta = self.battery_charge_rate - self.battery_discharge_rate
         self.battery.step()
         self.battery_charge_level = self.battery.charge
-        self.grid_carbon = self.energy_grid.step()
+        self.energy_grid.step()
+        self.grid_carbon = self.energy_grid.carbon
         self.total_carbon = self.grid_carbon * self.grid_power
