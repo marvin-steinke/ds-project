@@ -26,7 +26,6 @@ class EcovisorModel:
         
     def step(self):
         #get updated values from redis
-        #self.send_redis_update()
         self.get_redis_update()
         remaining = self.consumption - self.solar_power
         # excess (or equal) solar power
@@ -46,7 +45,8 @@ class EcovisorModel:
         # send updated values to redis
         self.send_redis_update()
 
-    # methods to update redis data
+    # method to update redis data
+    # packs values in data struct and sends it to redis
     def send_redis_update(self) -> None:
         data_dict = {
             "solar_power" : self.solar_power,
@@ -57,12 +57,11 @@ class EcovisorModel:
         }
         self.redis.mset(data_dict)
         self.redis.json().set('container',Path.root_path(),self.container)
-    
+    #Gets datastructure from redis and updates the used values (other left commented in code for reference)
     def get_redis_update(self) -> None:
         key_dict = {"solar_power","grid_power","grid_carbon","battery_discharge_rate","battery_charge_level"}
         data_dict = self.redis.mget(key_dict)
         data_dict = dict(zip(key_dict,data_dict))        
-        #print(data_dict)
         #self.solar_power = float(data_dict["solar_power"])
         #self.grid_power = float(data_dict["grid_power"])
         self.battery_discharge_rate = float(data_dict["battery_discharge_rate"])
