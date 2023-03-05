@@ -124,12 +124,11 @@ To achieve that, we implemented the Ecovisor-API from \cite{souza2023}, which ca
 The API-Server is connected to a RedisDB\cite{redis}, which serves as a key-value store and links the API-Server to the Ecovisor-Model.
 The Ecovisor-Model itself implements an Redis-Interface to read and write data from the RedisDB.
 In the following three sections we will describe these three parts of the \textit{External Application Interface} in depth.
-%TODO evtl. Gründe für den arch ansatz
+
 
 \subsubsection{API-Server}
 The API-Server exposes the Ecovisor-API to the "Workloads". It is implemented with the FastAPI Framework and utilizes the Uvicorn Web-Server \cite{uvicorn} to handle multiple clients accessing the API. Due to the ASGI (Asynchronous Server Gateway Interface) nature of the Web-Server, the module is started as a independent thread. The advantage of this, is that the server can handle multiple clients, which will be useful when multiple workloads will be connected to the simulation. On the other hand, the implementation into the system is more difficult, so that we decided to start the module independently. In earlier versions we tried to implement it inside of the Ecovisor-Model, but it would stops the execution of the simulation until the API-Server is stopped which renders the system unusable. This also enables the API-Server to be scaled independent from the Ecovisor-Model and the RedisDB. This may be helpful in bigger simulations with distributed infrastructure.
-%We did not implement the\textit{tick} from the Ecovisor-API, since we do not use it at the moment.
-%TODO evtl. tick
+We did not implement the\textit{tick} from the Ecovisor-API, since it is not used in the API in our approach and for the simulation part it is not important, since Mosaic already brings a time mechanism. So for now, we decided to not implement the \texttt{tick()} endpoint to the API, but at a later time, the functionality can easy be implemented.
 
 \subsubsection{RedisDB}
 The RedisDB is a fast, in memory, key-value store for simple data-types. In our system, it is used to save and provide the data from within the Ecovisor-Model to the API-Server. To keep the operability of the simulation simple, the RedisDB is started as a Docker Container via the docker python library \cite{docker_python}, which implements the docker engine API into python. The container image we used is the redislabs rejson redis image \cite{RedisJSON}. This images extends the RedisDB image with the capability to process JSON values. The Redis-Container is started right at the beginng of the simulation, so that it is up and operational when the first data is available. After the end of the simulation, the container is stopped and deleted to keep the test environment free of remnants of t he simulation.
