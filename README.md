@@ -41,3 +41,16 @@ Ecovisor: https://arxiv.org/abs/2210.04951
 SymPi: https://simpy.readthedocs.io
 
 MidtermPresentation: https://docs.google.com/presentation/d/1ghZASuAjA9Wq2quv4jdH2l4i-2MHgjfrNF5xFjGLGcU/edit#slide=id.g1aecc6f150d_0_6
+
+
+## Start Simulation
+
+install dependencys 'pyton -m pip -r requirements.txt'
+
+install & start docker 'systemctl start docker'
+
+start api server 'python api_server.py'
+
+start simulation 'python mwe.py'
+
+start consumer 'python api_consumer.py'
