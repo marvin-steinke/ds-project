@@ -60,7 +60,8 @@ def create_scenario(world):
     #consumption_agent = consumption_controller.ConsumptionAgent(kW_conversion_factor = 1)
     pv_model = pv_sim.PV()
     pv_agent = pv_controller.PVAgent(kW_conversion_factor = 1)
-    ecovisor_model = ecovisor.EcovisorModel(carbon_datafile=CARBON_DATA)
+    carbon_model = carbon_sim.CarbonIntensity()
+    ecovisor_model = ecovisor.EcovisorModel()
     monitor = collector.Monitor()
 
     # Connect entities
@@ -70,6 +71,8 @@ def create_scenario(world):
     ## PVModel -> PVAgent -> EcovisorModel
     world.connect(pv_model, pv_agent, ('P', 'solar_power'))
     world.connect(pv_agent, ecovisor_model, 'solar_power')
+    ## CarbonModel -> EcovisorModel
+    world.connect(carbon_model, ecovisor_model, ('rating', 'grid_carbon'))
 
     # Monitor
     world.connect(ecovisor_model, monitor,
