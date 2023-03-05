@@ -1,0 +1,9 @@
+In this article, we simulated Souza et al.'s \cite{souza2023} ecovisor and
+integrated it into a Mosaik co-simulation. This design abstracts the physical
+implementation and allows for the interaction with various simulators, such as
+simulated virtual energy resources or simulated consumers. To integrate real
+applications into this environment, we have enabled SIL and HIL capabilities by
+exposing the ecovisor API through a FastAPI server that is connected to a Redis
+database. We have devised a cost-effective and time-efficient approach for
+testing and developing carbon-aware applications that that does not require a
+physical ecovisor implementation.
