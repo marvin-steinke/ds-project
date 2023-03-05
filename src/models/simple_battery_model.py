@@ -12,12 +12,12 @@ class SimpleBatteryModel:
     *delta* must be specified in kWs.
 
     """
-    def __init__(self, capacity = 100.0, init_charge = -1.0):
+    def __init__(self, capacity = 100, init_charge = -1):
         self.capacity = capacity
         self.charge = init_charge if init_charge > -1 else capacity
         if self.charge > self.capacity:
             raise ValueError('The charge must not exceed its capacity')
-        self.delta = 0.0
+        self.delta = 0
 
     def step(self):
         # convert Ws to Wh and add to *charge*
@@ -25,4 +25,4 @@ class SimpleBatteryModel:
         if self.charge > self.capacity:
             self.charge = self.capacity
         elif self.charge < 0:
-            self.charge = 0.0
+            self.charge = 0
