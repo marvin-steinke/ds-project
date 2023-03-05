@@ -1,0 +1,35 @@
+\documentclass[aspectratio=169, 10pt]{beamer}
+\input{tu-beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{csquotes}
+\usepackage{lmodern}
+\usepackage{hyperref}
+\usepackage{url}
+
+\titlegraphic{
+    \begin{tikzpicture}[overlay, remember picture]
+        \node[above=15mm] (center) at (current page.south){};
+        \node[right=15mm] at (center) {\includegraphics[height=18mm]{logo}};
+        \node[left=15mm] at (center) {\includegraphics[height=18mm]{mosaik}};
+    \end{tikzpicture}
+}
+
+\title[Ecovisor \& Mosaik Co-Simulation]{
+    Integrating Ecovisor into Mosaik Co-Simulation
+}
+\subtitle{Simulate the Virtual Energy Grid}
+\author[Nickel \& Steinke]{Henrik Nickel, Marvin Steinke}
+\institute{Technische Universität Berlin}
+\newcommand{\preslocation}{Berlin}
+\date{\today}
+
+\begin{document}
+\frame[plain]{\titlepage}
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+\end{document}

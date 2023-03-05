@@ -11,6 +11,7 @@ from redis.commands.json.path import Path
 class EcovisorModel:
     def __init__(self, battery_capacity = 10.0, battery_charge_level = -1.0):
         self.battery = SimpleBatteryModel(battery_capacity, battery_charge_level)
+        self.energy_grid = SimpleEnergyGridModel(carbon_datafile, carbon_conversion_facor, sim_start)
         self.battery_charge_level = self.battery.charge
         self.battery_charge_rate = 0.0
         self.battery_discharge_rate = 0.0
@@ -41,6 +42,8 @@ class EcovisorModel:
         self.battery.delta = self.battery_charge_rate - self.battery_discharge_rate
         self.battery.step()
         self.battery_charge_level = self.battery.charge
+        self.energy_grid.step()
+        self.grid_carbon = self.energy_grid.carbon
         self.total_carbon = self.grid_carbon * self.grid_power
         # send updated values to redis
         self.send_redis_update()

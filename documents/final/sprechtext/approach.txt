@@ -1,0 +1,28 @@
+Now for the sake of the various mentioned benefits of simulations in research
+environments, our approach is to integrate this Ecovisor into the Mosaik
+co-simulation framework.
+
+For this, we formed a list of requirements outlining the policy for our system
+design. Since we are simulating the Ecovisor, a necessary constraint is to
+retain full functionality of the original Ecovisor design. A simulator in
+general first requires a mathematical model that is then executed. The execution
+of this model is then called a simulation. Mosaik's interface defines exactly
+what methods the simulator needs to implement to be properly integrated into its
+ecosystem. So if we want other simulated entities to interact with our simulated
+Ecovisor, we need to interface between the model and the Mosaik ecosystem. Now
+what stands out in our simulation environment is that we want non simulated
+entities to be able to communicate with our Ecovisor. If you remember, the
+Ecovisor enables containerized applications to interface with it. So, we also
+want to enable real containerized applications to interface with our -simulated-
+Ecovisor.
+
+Fulfilling these requirements, this is what our final design of the system
+results in. Starting with the Mosaik ecosystem at the bottom, you can see the
+heart of the system, our simulated Ecovisor. Because our implementation is very
+much dependent on a specific battery type, the battery is directly integrated
+into the Ecovisor. The same applies to the energy-grid which supplies the
+Ecovisor with information about the current carbon intensity the local
+electrical grid currently holds. Photovoltaic input is supplied by an extra
+module. The implementation here is not important to the Ecovisor. A simulated
+consumer - or application - can seamlessly interface with the Ecovisor through
+Mosaik's interface. For a real application or consumer however ...

@@ -1,0 +1,26 @@
+One approach to address virtual energy systems and software defined control was
+made by Souza et al. with their "ecovisor". This ecovisor allows each
+application to handle clean energy's unreliability in software based on its
+specific requirements. A small-scale prototype - on the right - was created and
+evaluated, showing that multiple applications can concurrently exercise their
+virtual energy system in different ways to better optimize carbon-efficiency
+based on their specific requirements.
+
+[hier ein wenig mit der figure vom ecovisor arbeiten und die API schnittstelle
+als hauptmerkmal für unser projekt erklären]
+
+Mosaik is an open-source co-simulation framework that allows users to simulate
+large, complex systems by combining multiple simulations of smaller, simpler
+components. It enables the integration of various simulation models and allows
+for the communication and synchronization of these models in a seamless and
+efficient manner. Mosaik's importance for research lies in its ability to
+simulate large and complex systems that would be difficult or infeasible to
+model using a single simulation tool. It allows researchers to combine different
+models to study the interactions and performance of the overall system. On the
+right for example, a smart grid simulation demo can be seen that involves a
+grid, households, and photovoltaic panels. These entities are represented by
+spheres in the simulation and are connected according to the layout of the
+scenario. The color of the spheres changes based on the current value of each
+element. [60s]
+
+=>[1m30s]

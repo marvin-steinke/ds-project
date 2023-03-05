@@ -1,9 +1,11 @@
 """
-A simple data collector that prints all data when the simulation finishes.
+A simple data collector that prints all data and saves it to a csv when the
+simulation finishes.
 
 """
 import collections
 import mosaik_api
+import csv
 from tabulate import tabulate
 
 META = {
@@ -51,6 +53,10 @@ class Collector(mosaik_api.Simulator):
                 table.append(row)
             end = list(list(sim_data.values())[0].keys())[-1] + 1
             headers = [str(i) for i in list(range(end))]
+            csv_data = [headers] + table
+            with open("data.csv", "w", newline="") as f:
+                writer = csv.writer(f)
+                writer.writerows(zip(*csv_data))
             headers.insert(0, sim)
             print(f'\n{tabulate(table, headers=headers)}')
 

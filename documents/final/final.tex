@@ -1,0 +1,65 @@
+\documentclass[aspectratio=169, 10pt]{beamer}
+\input{tu-beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{csquotes}
+\usepackage{lmodern}
+\usepackage{hyperref}
+\usepackage{url}
+
+\titlegraphic{
+    \begin{tikzpicture}[overlay, remember picture]
+        \node[above=15mm] (center) at (current page.south){};
+        \node[right=15mm] at (center) {\includegraphics[height=18mm]{logo}};
+        \node[left=15mm] at (center) {\includegraphics[height=18mm]{../mosaik}};
+    \end{tikzpicture}
+}
+
+\title[Ecovisor \& Mosaik Co-Simulation]{
+    Integrating Ecovisor into Mosaik Co-Simulation
+}
+\author[Steinke \and Nickel]{Henrik Nickel \and Marvin Steinke}
+\institute{Technische Universität Berlin}
+\date{\today}
+
+\begin{document}
+\frame[plain]{\titlepage}
+\begin{frame}{Outline}
+    \begin{center}
+        \tableofcontents
+    \end{center}
+\end{frame}
+
+\section{Introduction}
+\frame{\sectionpage}
+\input{sections/introduction}
+
+\section{Background}
+\frame{\sectionpage}
+\input{sections/background}
+
+\section{Approach}
+\frame{\sectionpage}
+\input{sections/approach}
+
+\section{Evaluation}
+\frame{\sectionpage}
+\input{sections/evaluation}
+
+\section{Conclusion}
+\frame{\sectionpage}
+\input{sections/conclusion}
+
+\appendix
+\begin{frame}[noframenumbering]{Bibliography}
+\bibliographystyle{ieeetr}
+\bibliography{refs}
+\vspace{4mm}
+\begin{itemize}
+    \item title page adapted from \url{https://mosaik.offis.de/}
+\end{itemize}
+\end{frame}
+
+\end{document}
