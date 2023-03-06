@@ -5,3 +5,4 @@ documents/paper/main.bbl
 documents/paper/main.blg
 documents/paper/main.log
 documents/paper/main.out
+documents/paper/*.gz
