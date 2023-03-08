@@ -20,7 +20,7 @@ class ApiServer:
         self.grid_power = 0.0
         self.container = {}
         self.redis = self.connect_to_redis('localhost',6379,0)
-        self.get_redis_update()
+        #self.get_redis_update()
         self.run(host,port)
 
     
