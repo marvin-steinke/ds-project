@@ -6,6 +6,8 @@ Author: Marvin Steinke
 from models.simple_battery_model import SimpleBatteryModel # type: ignore
 import redis
 from redis.commands.json.path import Path
+import docker
+
 
 class EcovisorModel:
     def __init__(self, battery_capacity = 10.0, battery_charge_level = -1.0):
@@ -20,9 +22,16 @@ class EcovisorModel:
         self.grid_power = 0.0
         self.total_carbon = 0.0
         self.container = {}
+        self.client = docker.from_env()
+        self.redis_container = self.client.containers.run('redislabs/rejson:latest',detach=True,auto_remove=True,ports={6379:6379},name="redis" )   
         self.redis = redis.Redis(host='localhost',port=6379,db=0)
+        while not self.is_redis_available():
+            print("Waiting for RedisDB")
         self.send_redis_update()
-        
+    
+    def __del__(self):
+        self.redis_container.stop()
+
     def step(self):
         #get updated values from redis
         #self.send_redis_update()
@@ -75,3 +84,11 @@ class EcovisorModel:
         for value in d_values:
             consumption = consumption + value
         self.consumption = consumption
+
+    def is_redis_available(self):
+    # ... get redis connection here, or pass it in. up to you.
+        try:
+            self.redis.ping()  # getting None returns None or throws an exception
+        except:
+            return False
+        return True
