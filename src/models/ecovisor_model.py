@@ -22,6 +22,7 @@ class EcovisorModel:
         self.grid_power = 0.0
         self.total_carbon = 0.0
         self.container = {}
+        #Initalise RedisDB and wait until ready
         self.client = docker.from_env()
         self.redis_container = self.client.containers.run('redislabs/rejson:latest',detach=True,auto_remove=True,ports={6379:6379},name="redis" )   
         self.redis = redis.Redis(host='localhost',port=6379,db=0)
@@ -29,6 +30,7 @@ class EcovisorModel:
             print("Waiting for RedisDB")
         self.send_redis_update()
     
+    #Cleans up after deleten of Obj
     def __del__(self):
         self.redis_container.stop()
 
