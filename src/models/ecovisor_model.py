@@ -9,8 +9,8 @@ from redis.commands.json.path import Path
 import docker
 
 
-class EcovisorModel:
-    def __init__(self, battery_capacity = 10.0, battery_charge_level = -1.0):
+class EcovisorModel: 
+    def __init__(self, battery_capacity = 0.3, battery_charge_level = 0.15): #KW Stunden
         self.battery = SimpleBatteryModel(battery_capacity, battery_charge_level)
         self.battery_charge_level = self.battery.charge
         self.battery_charge_rate = 0.0

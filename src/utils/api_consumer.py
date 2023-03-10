@@ -56,7 +56,7 @@ def main(argv):
                 print(str(response.content) + '\n')
             time.sleep(10)
     else:
-        set_powercap(50.0)
+        set_powercap(500.0)
         while True:
             for api in GET_ENDPOINTS:
                 response = get_data(api)
