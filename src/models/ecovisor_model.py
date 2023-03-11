@@ -13,7 +13,7 @@ class EcovisorModel:
     def __init__(self, battery_capacity = 0.3, battery_charge_level = 0.15): #KW Stunden
         self.battery = SimpleBatteryModel(battery_capacity, battery_charge_level)
         self.battery_charge_level = self.battery.charge
-        self.battery_charge_rate = 0.0
+        self.battery_charge_rate = 10.0
         self.battery_discharge_rate = 0.0
         self.battery_max_discharge = float('inf')
         self.consumption = 0.0
