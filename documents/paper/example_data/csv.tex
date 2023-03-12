@@ -6,23 +6,80 @@
 
 \begin{tikzpicture}
     \begin{axis}[
-        title={Title},
-        xlabel={x},
+        title={Scenario A},
+        xlabel={Time in s},
         %xtick=data,
-        ylabel={y},
+        ylabel={Energy in kWs},
         %ytick=data,
         ymajorgrids=true,
         grid style=dashed,
-        cycle list name=color list,
-        %legend pos=outer north east,
+        %cycle list name=color list,
+        legend pos=outer north east,
         %height=8cm,
         %width=50cm,
         %scale only axis=true,
     ]
-    \addplot[
-        color=blue,
-        mark=dot,
-    ] table [x=time, y=battery_charge_level, col sep=comma] {example_data_1.csv};
+
+    \addplot[color=blue,mark=dot]
+    table[x=time, y=battery_charge_level, col sep=comma]
+        {example_data_1_reduce_batt_cap.csv};
+    \addlegendentry{Battery Charge Level}
+
+    \addplot[color=yellow, mark=dot]
+    table [x=time, y=solar_power, col sep=comma]
+        {example_data_1_reduce_batt_cap.csv};
+    \addlegendentry{PV Power}
+
+    \addplot[color=black, mark=dot]
+    table [x=time, y=grid_power, col sep=comma]
+        {example_data_1_reduce_batt_cap.csv};
+    \addlegendentry{Grid Power}
+
+    \addplot[color=red, mark=dot]
+    table [x=time, y=consumption, col sep=comma]
+        {example_data_1_reduce_batt_cap.csv};
+    \addlegendentry{Consumption}
+
+    \end{axis}
+\end{tikzpicture}
+\hspace{.5cm}
+
+\begin{tikzpicture}
+    \begin{axis}[
+        title={Scenario B},
+        xlabel={Time in s},
+        %xtick=data,
+        ylabel={Energy in kWs},
+        %ytick=data,
+        ymajorgrids=true,
+        grid style=dashed,
+        %cycle list name=color list,
+        legend pos=outer north east,
+        %height=8cm,
+        %width=50cm,
+        %scale only axis=true,
+    ]
+
+    \addplot[color=blue,mark=dot]
+    table[x=time, y=battery_charge_level, col sep=comma]
+        {example_data_2.csv};
+    \addlegendentry{Battery Charge Level}
+
+    \addplot[color=yellow, mark=dot]
+    table [x=time, y=solar_power, col sep=comma]
+        {example_data_2.csv};
+    \addlegendentry{PV Power}
+
+    \addplot[color=black, mark=dot]
+    table [x=time, y=grid_power, col sep=comma]
+        {example_data_2.csv};
+    \addlegendentry{Grid Power}
+
+    \addplot[color=red, mark=dot]
+    table [x=time, y=consumption, col sep=comma]
+        {example_data_2.csv};
+    \addlegendentry{Consumption}
+
     \end{axis}
 \end{tikzpicture}
 \hspace{.5cm}
