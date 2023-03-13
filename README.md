@@ -1,6 +1,21 @@
 # ds-project
-Integrating Souza et al.'s Ecovisor into Mosaik Co-Simulation
-Distributed Systems Project Winter Term 2022/2023
+### Integrating Souza et al.'s Ecovisor into Mosaik Co-Simulation
+### Distributed Systems Project Winter Term 2022/2023
+
+To reduce emissions, cloud platforms must increasingly rely on renewable energy
+sources such as solar and wind power. Nevertheless, the issue of volatility
+associated with these sources presents a significant challenge, since current
+energy systems conceal such unreliability in hardware. Souza et al. have
+devised a solution to this issue by creating an “ecovisor”. This system
+virtualizes the energy infrastructure and allows for software-defined control
+to be accessible by applications. Setting up the ecovisor to develop
+carbon-aware applications, however, can be costly and time consuming. To
+address this problem, we simulated the ecovisor and its virtual energy system
+and integrated in into a Mosaik co-simulation. With an API server and a Redis
+database we are enabling Software- (SIL) and Hardware-In-The-Loop capabilities.
+To evaluate our approach, we created test cases using recorded solar and carbon
+data to demonstrate the accuracy of the ecovisor model’s implementation and its
+ability to transfer data correctly between the model and the API server.
 
 ## Repository Structure
 
