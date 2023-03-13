@@ -50,7 +50,7 @@ Ecovisor: https://arxiv.org/abs/2210.04951
 
 ## Start Simulation
 
-install dependencys `python -m pip -r requirements.txt`
+install dependencies `python -m pip -r requirements.txt`
 
 install & start docker `systemctl start docker`
 
