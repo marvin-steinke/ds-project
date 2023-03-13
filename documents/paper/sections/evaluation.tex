@@ -1,6 +1,79 @@
 To evaluate the functionality of our system, we designed a few example-cases to show, how the simulation works and what are the results may look like.
 
-\subsection{Example-Case 1}
+\subsection{Example-Case A}
 
+\begin{figure*}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            xlabel={Time in s},
+            ylabel={Energy in kWs},
+            ymajorgrids=true,
+            grid style=dashed,
+            legend pos=outer north east,
+        ]
 
-\subsection{Example-Case 2}
+        \addplot[color=red, mark=dot]
+        table [x=time, y=consumption, col sep=comma]
+            {figures/scenario_a.csv};
+        \addlegendentry{Consumption}
+
+        \addplot[color=yellow, mark=dot]
+        table [x=time, y=solar_power, col sep=comma]
+            {figures/scenario_a.csv};
+        \addlegendentry{PV Power}
+
+        \addplot[color=gray, mark=dot]
+        table [x=time, y=grid_power, col sep=comma]
+            {figures/scenario_a.csv};
+        \addlegendentry{Grid Power}
+
+        \addplot[color=blue,mark=dot]
+        table[x=time, y=battery_charge_level, col sep=comma]
+            {figures/scenario_a.csv};
+        \addlegendentry{Battery Charge Level}
+
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Example Case A}
+    \label{fig:example_case_a}
+\end{figure*}
+
+\subsection{Example-Case B}
+
+\begin{figure*}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            xlabel={Time in s},
+            ylabel={Energy in kWs},
+            ymajorgrids=true,
+            grid style=dashed,
+            legend pos=outer north east,
+        ]
+
+        \addplot[color=red, mark=dot]
+        table [x=time, y=consumption, col sep=comma]
+            {figures/scenario_b.csv};
+        \addlegendentry{Consumption}
+
+        \addplot[color=yellow, mark=dot]
+        table [x=time, y=solar_power, col sep=comma]
+            {figures/scenario_b.csv};
+        \addlegendentry{PV Power}
+
+        \addplot[color=gray, mark=dot]
+        table [x=time, y=grid_power, col sep=comma]
+            {figures/scenario_b.csv};
+        \addlegendentry{Grid Power}
+
+        \addplot[color=blue,mark=dot]
+        table[x=time, y=battery_charge_level, col sep=comma]
+            {figures/scenario_b.csv};
+        \addlegendentry{Battery Charge Level}
+
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Example Case B}
+    \label{fig:example_case_b}
+\end{figure*}
