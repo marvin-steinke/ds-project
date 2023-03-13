@@ -17,7 +17,7 @@ class SimpleEnergyGridModel:
         self.datafile = datafile
         self.conversion_factor = conversion_factor
         self.sim_start = sim_start
-        self.carbon = 0
+        self.carbon = 0.0
         self.carbon_generator = self.generator()
 
     """

@@ -15,14 +15,14 @@ class EcovisorModel:
         self.battery = SimpleBatteryModel(battery_capacity, battery_charge_level)
         self.energy_grid = SimpleEnergyGridModel(carbon_datafile, carbon_conversion_facor, sim_start)
         self.battery_charge_level = self.battery.charge
-        self.battery_charge_rate = 0
-        self.battery_discharge_rate = 0
+        self.battery_charge_rate = 0.0
+        self.battery_discharge_rate = 0.0
         self.battery_max_discharge = float('inf')
-        self.consumption = 0
-        self.solar_power = 0
-        self.grid_carbon = 0
-        self.grid_power = 0
-        self.total_carbon = 0
+        self.consumption = 0.0
+        self.solar_power = 0.0
+        self.grid_carbon = 0.0
+        self.grid_power = 0.0
+        self.total_carbon = 0.0
         self.container = {}
         #Initalise RedisDB and wait until ready
         self.client = docker.from_env()
@@ -45,14 +45,15 @@ class EcovisorModel:
         # solar power is insufficient -> use battery
         else:
             self.battery_discharge_rate = min(self.battery_max_discharge,
-                                              self.battery_charge_level * 3600,
+                                              self.battery_charge_level * 3600.0,
                                               remaining)
             remaining -= self.battery_discharge_rate
         self.grid_power = self.battery_charge_rate + remaining
         self.battery.delta = self.battery_charge_rate - self.battery_discharge_rate
         self.battery.step()
         self.battery_charge_level = self.battery.charge
-        self.grid_carbon = self.energy_grid.step()
+        self.energy_grid.step()
+        self.grid_carbon = self.energy_grid.carbon
         self.total_carbon = self.grid_carbon * self.grid_power
         self.send_redis_update()
 
