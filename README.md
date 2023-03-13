@@ -56,7 +56,9 @@ start simulation 'python mwe.py'
 start consumer 'python api_consumer.py'
 
 ## API usage
-The API exposes the following endpoints.
+The API exposes the following endpoints via http.
+
+The standard url is [localhost:8080/api/*](localhost:8080/api/*)
 
 |Method|Endpoint|Parameter|
 |------|--------|---------|
