@@ -67,6 +67,6 @@ The API exposes the following endpoints.
 |GET|/api/battery_charge_level|-|
 |GET|/api/container_powercap|container_id:str|
 |GET|/api/container_power|container_id:str|
-|POST|/api/container_powercap|container_id:str,kW:float|
+|POST|/api/container_powercap|container_id:str, kW:float|
 |POST|/api/battery_charge_level|kW:float|
 |POST|/api/battery_max_discharge|kW:float|
