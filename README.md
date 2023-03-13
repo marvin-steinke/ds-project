@@ -1,43 +1,32 @@
 # ds-project
+Integrating Souza et al.'s Ecovisor into Mosaik Co-Simulation
 Distributed Systems Project Winter Term 2022/2023
 
 ## Repository Structure
 
 ```
 ├── documents: contains all paperwork like presentations, pictures and stuff
-├── LICENSE
-├── README.md
 ├── resources: data for carbon intensity solar generation
-│   ├── actuals.csv
-│   ├── carbon_intensity.zip
-│   ├── consumption.csv
-│   ├── forecasts.csv
-│   └── tesing_PV.csv
 └── src
+    ├── mwe.py
     ├── agents
     │   ├── consumption_agent.py
-    │   │   ├── consumption_agent.cpython-310.pyc
-    │   │   └── smart_charge_agent.cpython-310.pyc
-    │   └── smart_charge_agent.py
+    │   └── pv_agent.py
     ├── models
-    │   └── simple_battery_model.py
-    ├── scc_mwe.py
+    │   ├── simple_energy_grid_model.py
+    │   ├── simple_battery_model.py
+    │   └── ecovisor_model.py
     ├── simulators
     │   ├── collector.py
     │   ├── consumption_controller.py
-    │   ├── flow_simulator.py
-    │   ├── simple_battery_simulator.py
-    │   └── smart_charge_controller.py
+    │   ├── ecovisor.py
+    │   └── pv_controller.py
     └── utils
+        ├── api_server
+        ├── consumer.py
         └── single_model_simulator.py
 ```
 
 ## Further Resources
-
 Mosaik: https://mosaik.offis.de/
-
 Ecovisor: https://arxiv.org/abs/2210.04951
-
-SymPi: https://simpy.readthedocs.io
-
-MidtermPresentation: https://docs.google.com/presentation/d/1ghZASuAjA9Wq2quv4jdH2l4i-2MHgjfrNF5xFjGLGcU/edit#slide=id.g1aecc6f150d_0_6
