@@ -11,9 +11,6 @@ SIM_CONFIG = {
     'Collector': {
         'python': 'simulators.collector:Collector',
         },
-    'ConsumptionController': {
-        'python': 'simulators.consumption_controller:ConsumptionController',
-        },
     'PVController': {
         'python': 'simulators.pv_controller:PVController',
         },
