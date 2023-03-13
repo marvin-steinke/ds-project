@@ -49,6 +49,8 @@ class Collector(mosaik_api.Simulator):
             for attr, values in sorted(sim_data.items()):
                 row = [attr]
                 for value in values.values():
+                    if attr == 'battery_charge_level':
+                        value = value * 3600
                     row.append(f'{value:3.2f}')
                 table.append(row)
             end = list(list(sim_data.values())[0].keys())[-1] + 1

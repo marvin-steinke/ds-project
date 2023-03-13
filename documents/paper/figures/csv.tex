@@ -1,0 +1,85 @@
+\documentclass{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+
+\begin{document}
+
+\begin{tikzpicture}
+    \begin{axis}[
+        title={daten\_schoener},
+        xlabel={Time in s},
+        %xtick=data,
+        ylabel={Energy in kWs},
+        %ytick=data,
+        ymajorgrids=true,
+        grid style=dashed,
+        %cycle list name=color list,
+        legend pos=outer north east,
+        %height=8cm,
+        %width=50cm,
+        %scale only axis=true,
+    ]
+    \addplot[color=red, mark=dot]
+    table [x=time, y=consumption, col sep=comma]
+        {daten_schoener.csv};
+    \addlegendentry{Consumption}
+
+    \addplot[color=yellow, mark=dot]
+    table [x=time, y=solar_power, col sep=comma]
+        {daten_schoener.csv};
+    \addlegendentry{PV Power}
+
+    \addplot[color=gray, mark=dot]
+    table [x=time, y=grid_power, col sep=comma]
+        {daten_schoener.csv};
+    \addlegendentry{Grid Power}
+
+    \addplot[color=blue,mark=dot]
+    table[x=time, y=battery_charge_level, col sep=comma]
+        {daten_schoener.csv};
+    \addlegendentry{Battery Charge Level}
+
+    \end{axis}
+\end{tikzpicture}
+\hspace{.5cm}
+
+\begin{tikzpicture}
+    \begin{axis}[
+        title={data\_extra\_functions},
+        xlabel={Time in s},
+        %xtick=data,
+        ylabel={Energy in kWs},
+        %ytick=data,
+        ymajorgrids=true,
+        grid style=dashed,
+        %cycle list name=color list,
+        legend pos=outer north east,
+        %height=8cm,
+        %width=50cm,
+        %scale only axis=true,
+    ]
+    \addplot[color=red, mark=dot]
+    table [x=time, y=consumption, col sep=comma]
+        {data_extra_functions.csv};
+    \addlegendentry{Consumption}
+
+    \addplot[color=yellow, mark=dot]
+    table [x=time, y=solar_power, col sep=comma]
+        {data_extra_functions.csv};
+    \addlegendentry{PV Power}
+
+    \addplot[color=gray, mark=dot]
+    table [x=time, y=grid_power, col sep=comma]
+        {data_extra_functions.csv};
+    \addlegendentry{Grid Power}
+
+    \addplot[color=blue,mark=dot]
+    table[x=time, y=battery_charge_level, col sep=comma]
+        {data_extra_functions.csv};
+    \addlegendentry{Battery Charge Level}
+
+    \end{axis}
+\end{tikzpicture}
+\hspace{.5cm}
+
+\end{document}

@@ -15,7 +15,8 @@
 \usepackage{url}
 \usepackage[linesnumbered]{algorithm2e}
 \usepackage{enumitem}
-
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
 
 % make algorithm2e work with IEEEtran
 \makeatletter
@@ -39,8 +40,7 @@
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
 T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
-% not *that* bad
-%\hbadness=2521
+% cant fix underful hboxes with that many underscores in variable names
 \hbadness=10000
 
 \begin{document}
@@ -64,7 +64,7 @@ T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
     be costly and time consuming. To address this problem, we simulated the
     ecovisor and its virtual energy system and integrated in into a Mosaik
     co-simulation. With an API server and a Redis database we are enabling
-    Software- (SIL) and Hardware-In-The-Loop capabilities. To evaluate our
+    Software- (SIL) and Hardware-In-The-Loop (HIL) capabilities. To evaluate our
     approach, we created test cases using recorded solar and carbon data to
     demonstrate the accuracy of the ecovisor model's implementation and its
     ability to transfer data correctly between the model and the API server.
