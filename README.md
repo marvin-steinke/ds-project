@@ -1,43 +1,47 @@
 # ds-project
-Distributed Systems Project Winter Term 2022/2023
+### Integrating Souza et al.'s Ecovisor into Mosaik Co-Simulation
+### Distributed Systems Project Winter Term 2022/2023
+
+To reduce emissions, cloud platforms must increasingly rely on renewable energy
+sources such as solar and wind power. Nevertheless, the issue of volatility
+associated with these sources presents a significant challenge, since current
+energy systems conceal such unreliability in hardware. Souza et al. have
+devised a solution to this issue by creating an “ecovisor”. This system
+virtualizes the energy infrastructure and allows for software-defined control
+to be accessible by applications. Setting up the ecovisor to develop
+carbon-aware applications, however, can be costly and time consuming. To
+address this problem, we simulated the ecovisor and its virtual energy system
+and integrated in into a Mosaik co-simulation. With an API server and a Redis
+database we are enabling Software- (SIL) and Hardware-In-The-Loop capabilities.
+To evaluate our approach, we created test cases using recorded solar and carbon
+data to demonstrate the accuracy of the ecovisor model’s implementation and its
+ability to transfer data correctly between the model and the API server.
 
 ## Repository Structure
 
 ```
 ├── documents: contains all paperwork like presentations, pictures and stuff
-├── LICENSE
-├── README.md
 ├── resources: data for carbon intensity solar generation
-│   ├── actuals.csv
-│   ├── carbon_intensity.zip
-│   ├── consumption.csv
-│   ├── forecasts.csv
-│   └── tesing_PV.csv
 └── src
+    ├── mwe.py
     ├── agents
     │   ├── consumption_agent.py
-    │   │   ├── consumption_agent.cpython-310.pyc
-    │   │   └── smart_charge_agent.cpython-310.pyc
-    │   └── smart_charge_agent.py
+    │   └── pv_agent.py
     ├── models
-    │   └── simple_battery_model.py
-    ├── scc_mwe.py
+    │   ├── simple_energy_grid_model.py
+    │   ├── simple_battery_model.py
+    │   └── ecovisor_model.py
     ├── simulators
     │   ├── collector.py
     │   ├── consumption_controller.py
-    │   ├── flow_simulator.py
-    │   ├── simple_battery_simulator.py
-    │   └── smart_charge_controller.py
+    │   ├── ecovisor.py
+    │   └── pv_controller.py
     └── utils
+        ├── api_server
+        ├── consumer.py
         └── single_model_simulator.py
 ```
 
 ## Further Resources
-
 Mosaik: https://mosaik.offis.de/
-
 Ecovisor: https://arxiv.org/abs/2210.04951
-
-SymPi: https://simpy.readthedocs.io
-
-MidtermPresentation: https://docs.google.com/presentation/d/1ghZASuAjA9Wq2quv4jdH2l4i-2MHgjfrNF5xFjGLGcU/edit#slide=id.g1aecc6f150d_0_6

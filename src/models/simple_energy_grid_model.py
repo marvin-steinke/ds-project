@@ -17,6 +17,7 @@ class SimpleEnergyGridModel:
         self.datafile = datafile
         self.conversion_factor = conversion_factor
         self.sim_start = sim_start
+        self.carbon = 0
         self.carbon_generator = self.generator()
 
     """
@@ -33,8 +34,11 @@ class SimpleEnergyGridModel:
     """
     Steps the generator.
     """
-    def step(self) -> Union[float, StopIteration]:
-        return next(self.carbon_generator)
+    def step(self) -> None:
+        try:
+            self.carbon = next(self.carbon_generator)
+        except StopIteration:
+            raise ValueError('The dataset has ended')
 
     """
     Return a carbon value for a given time, if it exists.
