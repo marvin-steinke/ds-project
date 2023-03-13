@@ -24,7 +24,7 @@ SIM_CONFIG = {
 
 START = '2014-01-01 14:08:00'
 #CONSUMPTION_DATA = '../resources/consumption.csv'
-PV_DATA = '../resources/scaled_with_03.csv'
+PV_DATA = '../resources/new_scaled.csv'
 CARBON_DATA = '../resources/example_2_carbon.csv'
 END = 502
 
