@@ -6,23 +6,39 @@
 
 \begin{tikzpicture}
     \begin{axis}[
-        title={Title},
-        xlabel={x},
+        title={Scenario A},
+        xlabel={Time in s},
         %xtick=data,
-        ylabel={y},
+        ylabel={Energy in kWs},
         %ytick=data,
         ymajorgrids=true,
         grid style=dashed,
-        cycle list name=color list,
-        %legend pos=outer north east,
+        %cycle list name=color list,
+        legend pos=outer north east,
         %height=8cm,
         %width=50cm,
         %scale only axis=true,
     ]
-    \addplot[
-        color=blue,
-        mark=dot,
-    ] table [x=time, y=battery_charge_level, col sep=comma] {example_data_1.csv};
+    \addplot[color=red, mark=dot]
+    table [x=time, y=consumption, col sep=comma]
+        {with_scaled_pv.csv};
+    \addlegendentry{Consumption}
+
+    \addplot[color=yellow, mark=dot]
+    table [x=time, y=solar_power, col sep=comma]
+        {with_scaled_pv.csv};
+    \addlegendentry{PV Power}
+
+    \addplot[color=gray, mark=dot]
+    table [x=time, y=grid_power, col sep=comma]
+        {with_scaled_pv.csv};
+    \addlegendentry{Grid Power}
+
+    \addplot[color=blue,mark=dot]
+    table[x=time, y=battery_charge_level, col sep=comma]
+        {with_scaled_pv.csv};
+    \addlegendentry{Battery Charge Level}
+
     \end{axis}
 \end{tikzpicture}
 \hspace{.5cm}
