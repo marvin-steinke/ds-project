@@ -54,3 +54,19 @@ start api server 'python api_server.py'
 start simulation 'python mwe.py'
 
 start consumer 'python api_consumer.py'
+
+## API usage
+The API exposes the following endpoints.
+
+|Method|Endpoint|Parameter|
+|------|--------|---------|
+|GET|/api/solar_power|-|
+|GET|/api/grid_power|-|
+|GET|/api/grid_carbon|-|
+|GET|/api/battery_discharge_rate|-|
+|GET|/api/battery_charge_level|-|
+|GET|/api/container_powercap|container_id:str|
+|GET|/api/container_power|container_id:str|
+|POST|/api/container_powercap|container_id:str,kW:float|
+|POST|/api/battery_charge_level|kW:float|
+|POST|/api/battery_max_discharge|kW:float|
