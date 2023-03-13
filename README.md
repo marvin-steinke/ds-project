@@ -45,14 +45,19 @@ ability to transfer data correctly between the model and the API server.
 ## Further Resources
 
 Mosaik: https://mosaik.offis.de/
+
 Ecovisor: https://arxiv.org/abs/2210.04951
 
 ## Start Simulation
 
-install dependencys `python -m pip -r requirements.txt`
+install dependencies `python -m pip -r requirements.txt`
+
 install & start docker `systemctl start docker`
+
 start api server `python api_server.py`
+
 start simulation `python mwe.py`
+
 start consumer `python api_consumer.py`
 
 ## API usage
