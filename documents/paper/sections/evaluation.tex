@@ -1,108 +1,168 @@
-To assess the effectiveness of our system, we conducted a two-part evaluation using open-source real-world data. We designed two example cases to demonstrate the simulation capabilities of Ecovisor and showcase how the implemented API can be used by consumers. To improve the clarity of the data presented in our examples, we scaled down the Photo Voltaic (PV) data to approximately 30\% of its original values. This allowed us to better showcase the API usage and plotted graphs. Scaling down the input data did not impact the simulation itself, as we could simply assume that less solar power was available due to weather or limitations of the solar power generators.
+To assess the effectiveness of our system, we conducted a two-part evaluation
+using open-source real-world data. We designed two example cases to demonstrate
+the simulation capabilities of Ecovisor and showcase how the implemented API can
+be used by consumers. To improve the clarity of the data presented in our
+examples, we scaled down the Photo Voltaic (PV) data to approximately 30\% of
+its original values. This allowed us to better showcase the API usage and
+plotted graphs. Scaling down the input data did not impact the simulation
+itself, as we could simply assume that less solar power was available due to
+weather or limitations of the solar power generators.
 
-In the first part of our evaluation, we demonstrate the general functionality of the Ecovisor model and showcased how the output changed with varying input of the energy mix.\\
- In the second example, we highlighted a missing functionality of the API by demonstrating how a workload application can set the \textit{battery\_charge\_rate} and \textit{battery\_max\_discharge}.
- 
-To enhance the comprehensibility of our evaluation, we included two plots visualizing the output data from the simulation. One plot was included for each example, helping to clearly illustrate the results of our evaluation.
+In the first part of our evaluation, we demonstrate the general functionality of
+the Ecovisor model and showcased how the output changed with varying input of
+the energy mix. In the second example, we highlighted a missing functionality
+of the API by demonstrating how a workload application can set the
+\texttt{battery\_charge\_rate} and \texttt{battery\_max\_discharge}.
+
+To enhance the comprehensibility of our evaluation, we included two plots
+visualizing the output data from the simulation. One plot was included for each
+example, helping to clearly illustrate the results of our evaluation.
 
 %To evaluate the functionality of our system, we designed two example-cases to show, how the simulation of the Ecovisor works and how the implemented API is used by a consumer. For this we used open source real world data.
 %To fit the data into our examples, we scaled the Photo Voltaic (PV) Data down to ~30\% of its original values. This enhances the visibility fo the API usage and the data in the plotted graphs. Scaling down the input data does not affect the simulation itself, since we can just assume, that less solar power is available due to weather or limitations of the solar power generators.\\
 %We divided our showcases into two parts, the first one showing the general functionality of the Ecovisor model and how the output changes with different changing input of the energy mix.\\
-%The second example shows the missing functionality of the API, which is used by a workload application to set the \textit{battery\_charge\_rate} and the \textit{battery\_max\_discharge}.
+%The second example shows the missing functionality of the API, which is used by a workload application to set the \texttt{battery\_charge\_rate} and the \texttt{battery\_max\_discharge}.
 
 \subsection{Ecovisor-Model with changing energy input}
 
 \begin{figure*}
-	\centering
-	\begin{tikzpicture}
-		\begin{axis}[
-			xlabel={Time in s},
-			ylabel={Energy in kWs},
-			ymajorgrids=true,
-			grid style=dashed,
-			legend pos=outer north east,
-			]
-			
-			\addplot[color=red, mark=dot]
-			table [x=time, y=consumption, col sep=comma]
-			{figures/scenario_b.csv};
-			\addlegendentry{Consumption}
-			
-			\addplot[color=yellow, mark=dot]
-			table [x=time, y=solar_power, col sep=comma]
-			{figures/scenario_b.csv};
-			\addlegendentry{PV Power}
-			
-			\addplot[color=gray, mark=dot]
-			table [x=time, y=grid_power, col sep=comma]
-			{figures/scenario_b.csv};
-			\addlegendentry{Grid Power}
-			
-			\addplot[color=blue,mark=dot]
-			table[x=time, y=battery_charge_level, col sep=comma]
-			{figures/scenario_b.csv};
-			\addlegendentry{Battery Charge Level}
-			
-		\end{axis}
-	\end{tikzpicture}
-	\caption{Showcase changing Energy Mix}
-	\label{fig:example_case_a}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                xlabel={Time in s},
+                ylabel={Energy in kWs},
+                ymajorgrids=true,
+                grid style=dashed,
+                legend pos=outer north east,
+            ]
+
+            \addplot[color=red, mark=dot]
+            table [x=time, y=consumption, col sep=comma]
+                {figures/scenario_b.csv};
+            \addlegendentry{Consumption}
+
+            \addplot[color=yellow, mark=dot]
+            table [x=time, y=solar_power, col sep=comma]
+                {figures/scenario_b.csv};
+            \addlegendentry{PV Power}
+
+            \addplot[color=gray, mark=dot]
+            table [x=time, y=grid_power, col sep=comma]
+                {figures/scenario_b.csv};
+            \addlegendentry{Grid Power}
+
+            \addplot[color=blue,mark=dot]
+            table[x=time, y=battery_charge_level, col sep=comma]
+                {figures/scenario_b.csv};
+            \addlegendentry{Battery Charge Level}
+
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Showcase changing Energy Mix}
+    \label{fig:example_case_a}
 \end{figure*}
 
 
 
-The first example showcased the general functionality of the Ecovisor model and how the output is affected by changing availability of different energy sources. For this simulation, we utilized an example carbon data to determine the amount of carbon emitted when using grid energy and a solar energy input file, which was scaled down to one-third of its original value. Starting from second 200, we further scaled it down until the output was under the total consumption of the workload application. In addition, we set the \textit{battery capacity} to 0.3 KW/h and the \textit{battery\_charge\_level} to 0.15 KW/h.
+The first example showcased the general functionality of the Ecovisor model and
+how the output is affected by changing availability of different energy sources.
+For this simulation, we utilized an example carbon data to determine the amount
+of carbon emitted when using grid energy and a solar energy input file, which
+was scaled down to one-third of its original value. Starting from second 200, we
+further scaled it down until the output was under the total consumption of the
+workload application. In addition, we set the \texttt{battery capacity} to 0.3
+KW/h and the \texttt{battery\_charge\_level} to 0.15 KW/h.
 
-In the plot \ref{fig:example_case_a}, we can observe that the \textit{Grid Power} output is opposite to the PV Power output until second 200. This is because when enough PV energy is available, the surplus energy is fed into the energy grid, resulting in negative carbon emission. During the first 200 seconds, the workload application's consumption is stable at 500 KWs and doesn't change throughout the simulation. Although this isn't ideal in a real-world scenario, it allowed us to more easily demonstrate the functionality of the model.
+In the plot \ref{fig:example_case_a}, we can observe that the \texttt{Grid
+Power} output is opposite to the PV Power output until second 200. This is
+because when enough PV energy is available, the surplus energy is fed into the
+energy grid, resulting in negative carbon emission. During the first 200
+seconds, the workload application's consumption is stable at 500 KWs and doesn't
+change throughout the simulation. Although this isn't ideal in a real-world
+scenario, it allowed us to more easily demonstrate the functionality of the
+model.
 
-In the first third of the simulation, until second 100, we can see that there is enough PV energy to run the workload and feed some extra energy into the grid. However, the Battery Charge Level isn't high enough to load the battery consistently. Around second 100, the PV Energy level rises, and the battery starts charging until second 200. At second 200, the PV Energy level drops, and the workload application uses the energy in the battery and from the available PV energy to meet its demands. Around second 350, no PV Energy is available, and the workload only runs on grid power until the end of the simulation. The battery doesn't charge since it only charges with PV energy.
+In the first third of the simulation, until second 100, we can see that there is
+enough PV energy to run the workload and feed some extra energy into the grid.
+However, the Battery Charge Level isn't high enough to load the battery
+consistently. Around second 100, the PV Energy level rises, and the battery
+starts charging until second 200. At second 200, the PV Energy level drops, and
+the workload application uses the energy in the battery and from the available
+PV energy to meet its demands. Around second 350, no PV Energy is available, and
+the workload only runs on grid power until the end of the simulation. The
+battery doesn't charge since it only charges with PV energy.
 
-This example demonstrates how the Ecovisor model behaves with different available energy sources. It charges the battery when enough PV energy is available and uses all other available energy before utilizing grid energy to reduce carbon emission.
+This example demonstrates how the Ecovisor model behaves with different
+available energy sources. It charges the battery when enough PV energy is
+available and uses all other available energy before utilizing grid energy to
+reduce carbon emission.
 
 
 \subsection{Additional API Functionality}
 
 \begin{figure*}
-	\centering
-	\begin{tikzpicture}
-		\begin{axis}[
-			xlabel={Time in s},
-			ylabel={Energy in kWs},
-			ymajorgrids=true,
-			grid style=dashed,
-			legend pos=outer north east,
-			]
-			
-			\addplot[color=red, mark=dot]
-			table [x=time, y=consumption, col sep=comma]
-			{figures/scenario_a.csv};
-			\addlegendentry{Consumption}
-			
-			\addplot[color=yellow, mark=dot]
-			table [x=time, y=solar_power, col sep=comma]
-			{figures/scenario_a.csv};
-			\addlegendentry{PV Power}
-			
-			\addplot[color=gray, mark=dot]
-			table [x=time, y=grid_power, col sep=comma]
-			{figures/scenario_a.csv};
-			\addlegendentry{Grid Power}
-			
-			\addplot[color=blue,mark=dot]
-			table[x=time, y=battery_charge_level, col sep=comma]
-			{figures/scenario_a.csv};
-			\addlegendentry{Battery Charge Level}
-			
-		\end{axis}
-	\end{tikzpicture}
-	\caption{Showcase additional API Functionality}
-	\label{fig:example_case_b}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                xlabel={Time in s},
+                ylabel={Energy in kWs},
+                ymajorgrids=true,
+                grid style=dashed,
+                legend pos=outer north east,
+            ]
+
+            \addplot[color=red, mark=dot]
+            table [x=time, y=consumption, col sep=comma]
+                {figures/scenario_a.csv};
+            \addlegendentry{Consumption}
+
+            \addplot[color=yellow, mark=dot]
+            table [x=time, y=solar_power, col sep=comma]
+                {figures/scenario_a.csv};
+            \addlegendentry{PV Power}
+
+            \addplot[color=gray, mark=dot]
+            table [x=time, y=grid_power, col sep=comma]
+                {figures/scenario_a.csv}; \addlegendentry{Grid Power}
+
+            \addplot[color=blue,mark=dot]
+            table[x=time, y=battery_charge_level, col sep=comma]
+                {figures/scenario_a.csv};
+            \addlegendentry{Battery Charge Level}
+
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Showcase additional API Functionality}
+    \label{fig:example_case_b}
 \end{figure*}
 
-The second showcase, illustrated in Figure \ref{fig:example_case_b}, employs the same PV and Carbon data as in the first showcase, resulting in the same correlation between PV Energy and Grid Energy. The objective of this showcase is to demonstrate the usage of the API endpoints for setting the \textit{container\_powercap}, the \textit{battery\_charge\_rate}, and the \textit{battery\_max\_discharge}.
+The second showcase, illustrated in Figure \ref{fig:example_case_b}, employs the
+same PV and Carbon data as in the first showcase, resulting in the same
+correlation between PV Energy and Grid Energy. The objective of this showcase is
+to demonstrate the usage of the API endpoints for setting the
+\texttt{container\_powercap}, the \texttt{battery\_charge\_rate}, and the
+\texttt{battery\_max\_discharge}.
 
-While the \textit{container\_powercap} was also utilized in the first showcase, the consumption set in the beginning remained constant. In this showcase, we developed a Python script that emulates a workload application by sending API requests to adjust the \textit{container\_powercap} around second 45 from 500 KWs to 250 KWs, which is clearly discernible in the plot. This capability enables a workload application to dynamically adjust its power consumption while scaling up or down.
+While the \texttt{container\_powercap} was also utilized in the first showcase,
+the consumption set in the beginning remained constant. In this showcase, we
+developed a Python script that emulates a workload application by sending API
+requests to adjust the \texttt{container\_powercap} around second 45 from 500
+KWs to 250 KWs, which is clearly discernible in the plot. This capability
+enables a workload application to dynamically adjust its power consumption while
+scaling up or down.
 
-Furthermore, the \textit{battery\_charge\_rate} and \textit{battery\_max\_discharge} are utilized to operate the battery. The \textit{battery\_charge\_rate} determines how much of the available PV Energy is used to charge the battery, while the \textit{battery\_max\_discharge} sets the threshold of energy that will not be used. These parameters can be adjusted to either extend the battery's lifespan or to implement different energy usage profiles. We changed both values by sending API requests with the same Python script used to set the \textit{container\_powercap}. At around second 75, we can observe that after setting both battery control values to 10 KWs, the battery begins to charge even when the available energy does not change.
+Furthermore, the \texttt{battery\_charge\_rate} and
+\texttt{battery\_max\_discharge} are utilized to operate the battery. The
+\texttt{battery\_charge\_rate} determines how much of the available PV Energy is
+used to charge the battery, while the \texttt{battery\_max\_discharge} sets the
+threshold of energy that will not be used. These parameters can be adjusted to
+either extend the battery's lifespan or to implement different energy usage
+profiles. We changed both values by sending API requests with the same Python
+script used to set the \texttt{container\_powercap}. At around second 75, we can
+observe that after setting both battery control values to 10 KWs, the battery
+begins to charge even when the available energy does not change.
 
-These two examples demonstrate the functionality of the Ecovisor-Model and its API. They show how the model can be used to simulate an Ecovisor for a workload application, allowing researchers and engineers to test different energy usage profiles and settings.
+These two examples demonstrate the functionality of the Ecovisor-Model and its
+API. They show how the model can be used to simulate an Ecovisor for a workload
+application, allowing researchers and engineers to test different energy usage
+profiles and settings.
